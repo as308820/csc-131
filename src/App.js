@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
+import Header from './pages/Header';
 import { useState, useEffect } from 'react';
 
 
@@ -23,6 +24,7 @@ function App() {
   return (
     <Router>
       <div className="App">
+        <Header /> {/* This will appear at the top of the page*/}
         <h1>{data}</h1>
         <p>This is a simple React frontend</p>
 
