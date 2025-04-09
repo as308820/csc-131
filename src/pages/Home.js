@@ -2,10 +2,14 @@ import React from "react";
 
 function Home() {
   return (
-    <div>
-      <h1>Home Page</h1>
-      <p>Welcome to the home page!</p>
-    </div>
+    <main style={{ padding: '2rem' }}>
+      <section>
+      <h1>Welcome to the Quiz Application</h1>    
+      <p>
+        Test your knowledge with our interactive quiz platform
+      </p>
+      </section>
+    </main>
   );
 }
 
