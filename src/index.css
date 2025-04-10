@@ -2,8 +2,11 @@
   margin: auto;
 }
 
-
-
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%; /* Ensure the body takes up the full height */
+}
 
 body {
   margin: 0;
@@ -12,6 +15,16 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensure the app takes up the full viewport height */
+}
+
+.App {
+  flex: 1; /* Allow the main content to grow and push the footer down */
 }
 
 code {
