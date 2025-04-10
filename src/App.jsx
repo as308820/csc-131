@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
+import Credits from "./pages/Credits";
 import { useState, useEffect } from 'react';
 
 
@@ -10,7 +11,7 @@ import { useState, useEffect } from 'react';
 import {getTest} from "./functions/test";
 
 function App() {
-  const [data, setData] = useState("HELLO WORLD");
+  const [data, setData] = useState("Test Application");
 
   useEffect(() => {
     getTest()
@@ -24,7 +25,8 @@ function App() {
     <Router>
       <div className="App">
         <h1>{data}</h1>
-        <p>This is a simple React frontend</p>
+        <p>Test Application</p>
+       
 
         {/* Navigation Links */}
         <nav>
@@ -32,6 +34,7 @@ function App() {
             <li><Link to="/">Home</Link></li>
             <li><Link to="/about">About</Link></li>
             <li><Link to="/contact">Contact</Link></li>
+            <li><Link to="/credits">Credits</Link></li>
           </ul>
         </nav>
 
@@ -40,6 +43,7 @@ function App() {
             <Route path= "/" element={<Home />} />
             <Route path= "/about" element={<About />} />
             <Route path= "/contact" element={<Contact />} />
+            <Route path= "/credits" element={<Credits />} />
         </Routes>
       </div>
     </Router>
