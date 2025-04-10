@@ -4,11 +4,11 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Contacts from "./pages/Contacts";
 import Credits from "./pages/Credits";
+import Footer from "./footer/footer"; // Import Footer component
 import { useState, useEffect } from 'react';
 
-
 //functions
-import {getTest} from "./functions/test";
+import { getTest } from "./functions/test";
 
 function App() {
   const [data, setData] = useState("Test Application");
@@ -26,7 +26,6 @@ function App() {
       <div className="App">
         <h1>{data}</h1>
         <p>Test Application</p>
-       
 
         {/* Navigation Links */}
         <nav>
@@ -38,13 +37,16 @@ function App() {
           </ul>
         </nav>
 
-        {/*Define Routes */}
+        {/* Define Routes */}
         <Routes>
-            <Route path= "/" element={<Home />} />
-            <Route path= "/about" element={<About />} />
-            <Route path= "/contacts" element={<Contacts />} />
-            <Route path= "/credits" element={<Credits />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contacts" element={<Contacts />} />
+          <Route path="/credits" element={<Credits />} />
         </Routes>
+
+        {/* Footer Component */}
+        <Footer />
       </div>
     </Router>
   );
