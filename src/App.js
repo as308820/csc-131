@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Header from './pages/Header';
+import Login from "./pages/Login";
 import { useState, useEffect } from 'react';
 
 
@@ -16,7 +17,7 @@ function App() {
   useEffect(() => {
     getTest()
       .then((res) => {
-        setData(res.message);
+        setData(res.message); //Here we'll be disaplying fetched data from the API. Which is the backend I guess? -Aaron
       })
       .catch((err) => console.log(err));    
   }, []);
@@ -25,7 +26,7 @@ function App() {
     <Router>
       <div className="App">
         <Header /> {/* This will appear at the top of the page*/}
-        <h1>{data}</h1>
+        <h1>{data}</h1> {/* The API data will be displayed here*/}
         <p>This is a simple React frontend</p>
 
         {/* Navigation Links */}
@@ -39,6 +40,7 @@ function App() {
 
         {/*Define Routes */}
         <Routes>
+            <Route path="/login" element={<Login />} />
             <Route path= "/" element={<Home />} />
             <Route path= "/about" element={<About />} />
             <Route path= "/contact" element={<Contact />} />
