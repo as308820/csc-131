@@ -7,7 +7,6 @@ const Header = ()=> {
             <h1>Quiz App</h1>
             <nav className="nav-links">
                 <Link to="/login">Login</Link>
-                <Link to="/register">Register</Link>
             </nav>
             {/*TODO: Add styling to the header and navigation links later */}
         </header>
