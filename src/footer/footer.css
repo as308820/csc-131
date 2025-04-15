@@ -1,20 +1,47 @@
+/* Update the html and body styles */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
 .section_padding{
     padding: 4rem 4rem;
 }
 
-.footer {
-    width: 100%; /* Make the footer span the full width of the page */
-    background-color: #13579b; /* Example background color */
-    padding: 20px 0; /* Add some padding for spacing */
-    position: relative; /* Ensure it doesn't overlap content */
-    bottom: 0; /* Stick to the bottom */
-}
-
-.sb__footer {
-    max-width: 1200px; /* Limit the content width */
-    margin: 0 auto; /* Center the content */
+/* Update the page container */
+.page-container {
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
+    margin-bottom: 0; /* Remove the previous margin */
+}
+
+/* Update the main content area if needed */
+.quiz-box {
+    flex: 1 0 auto; /* This will make the content area expand */
+}
+
+/* Update the footer class */
+.footer {
+    width: 100vw; /* Change to viewport width */
+    background-color: rgb(84, 80, 80);
+    padding: 20px 0;
+    position: relative;
+    margin-top: auto;
+    margin-left: calc(-50vw + 50%); /* Compensate for any parent padding */
+    margin-right: calc(-50vw + 50%);
+    box-sizing: border-box;
+}
+
+/* Update the sb__footer class to maintain content width */
+.sb__footer {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    padding: 0 20px; /* Add padding to keep content from touching edges */
+    box-sizing: border-box;
 }
 
 .sb__footer-links {
