@@ -5,6 +5,11 @@ import About from "./pages/About";
 import Contacts from "./pages/Contacts";
 import Credits from "./pages/Credits";
 import Footer from "./footer/footer"; // Import Footer component
+
+// Accessibility imports
+import { AccessibilityProvider } from "./accessibility/AccessibilityContext";
+import AccessibilityButton from "./accessibility/AccessibilityButton";
+
 import { useState, useEffect } from 'react';
 
 //functions
@@ -22,33 +27,38 @@ function App() {
   }, []);
 
   return (
-    <Router>
-      <div className="App">
-        <h1>{data}</h1>
-        <p>Test Application</p>
+    <AccessibilityProvider>
+      <Router>
+        <div className="App">
+          <h1>{data}</h1>
+          <p>Test Application</p>
 
-        {/* Navigation Links */}
-        <nav>
-          <ul>
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/about">About</Link></li>
-            <li><Link to="/contacts">Contacts</Link></li>
-            <li><Link to="/credits">Credits</Link></li>
-          </ul>
-        </nav>
+          {/* Navigation Links */}
+          <nav>
+            <ul>
+              <li><Link to="/">Home</Link></li>
+              <li><Link to="/about">About</Link></li>
+              <li><Link to="/contacts">Contacts</Link></li>
+              <li><Link to="/credits">Credits</Link></li>
+            </ul>
+          </nav>
 
-        {/* Define Routes */}
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contacts" element={<Contacts />} />
-          <Route path="/credits" element={<Credits />} />
-        </Routes>
+          {/* Define Routes */}
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contacts" element={<Contacts />} />
+            <Route path="/credits" element={<Credits />} />
+          </Routes>
 
-        {/* Footer Component */}
-        <Footer />
-      </div>
-    </Router>
+          {/* Accessibility Button */}
+          <AccessibilityButton />
+
+          {/* Footer Component */}
+          <Footer />
+        </div>
+      </Router>
+    </AccessibilityProvider>
   );
 }
 
