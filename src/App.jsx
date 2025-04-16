@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Contacts from "./pages/Contacts";
 import Credits from "./pages/Credits";
+import Register from "./pages/Register";
 import { useState, useEffect } from 'react';
 
 
@@ -44,6 +45,8 @@ function App() {
             <Route path= "/about" element={<About />} />
             <Route path= "/contacts" element={<Contacts />} />
             <Route path= "/credits" element={<Credits />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
         </Routes>
       </div>
     </Router>
