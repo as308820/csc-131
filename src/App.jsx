@@ -5,6 +5,8 @@ import About from "./pages/About";
 import Contacts from "./pages/Contacts";
 import Credits from "./pages/Credits";
 import Register from "./pages/Register";
+import Login from "./pages/Login";
+import Header from './pages/Header';
 import { useState, useEffect } from 'react';
 
 
@@ -25,6 +27,7 @@ function App() {
   return (
     <Router>
       <div className="App">
+        <Header /> {/* This will appear at the top of the page*/}
         <h1>{data}</h1>
         <p>Test Application</p>
        
