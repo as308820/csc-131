@@ -1,28 +1,21 @@
 import React from 'react';
 import { useAccessibility } from './AccessibilityContext';
+import './AccessibilityModal.css';
 
 export default function AccessibilityModal({ onClose }) {
   const { theme, setTheme, textSize, setTextSize } = useAccessibility();
 
   return (
-    <div style={{
-      position: 'fixed',
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)',
-      backgroundColor: '#fff',
-      padding: '1.5rem',
-      boxShadow: '0 0 15px rgba(0,0,0,0.3)',
-      zIndex: 1100,
-      borderRadius: '8px',
-      minWidth: '300px'
-    }}>
-      <button onClick={onClose} style={{ float: 'right' }}>✖</button>
+    <div className='accessibility-modal'>
+      <button onClick={onClose} className='accessibility-close-btn'>✖</button>
       <h3>Accessibility Settings</h3>
 
       <div>
         <label>Theme: </label>
-        <button onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>
+        <button
+          className="accessibility-toggle"
+          onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+        >
           {theme === 'light' ? 'Switch to Dark' : 'Switch to Light'}
         </button>
       </div>
@@ -35,6 +28,7 @@ export default function AccessibilityModal({ onClose }) {
           max="30"
           value={textSize}
           onChange={e => setTextSize(parseInt(e.target.value))}
+          className="accessibility-slider"
         />
       </div>
     </div>

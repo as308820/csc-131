@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import AccessibilityModal from './AccessibilityModal';
+import './AccessibilityModal.css';
 
 export default function AccessibilityButton() {
   const [open, setOpen] = useState(false);
@@ -7,8 +8,8 @@ export default function AccessibilityButton() {
   return (
     <>
       <button
+        className="accessibility-button"
         onClick={() => setOpen(true)}
-        style={{ position: 'fixed', bottom: 20, right: 20, zIndex: 1000 }}
       >
         Accessibility
       </button>

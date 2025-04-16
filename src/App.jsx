@@ -55,7 +55,7 @@ function LayoutContent() {
   );
 }
 
-// ✅ Top-level App wrapper
+// top-level App wrapper
 export default function App() {
   return (
     <AccessibilityProvider>
