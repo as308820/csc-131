@@ -1,0 +1,58 @@
+.header {
+    background-color: #282c34;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+  
+  .header h1 {
+    margin: 0;
+    font-size: 1.8rem;
+    color: #00d8ff;
+  }
+
+  .logo{
+    height: 60px;
+    width: auto;
+    border-radius: 50%;
+    border: 2px solid #00d8ff;
+    padding: 0.2rem;
+    background-color: transparent;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .nav-links {
+    display: flex;
+    gap: 1rem;
+    margin-left: auto;
+    
+  }
+  
+  .login-button, .register-button {
+    border: 2px solid #00d8ff;
+    background: transparent;
+    color: white;
+    padding: 0.4rem 0.9rem;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: 0.3s ease;
+    
+  }
+  
+  .login-button:hover, .register-button:hover {
+    background: #00d8ff;
+    color: #1f1f1f;
+  }
+
+  .logo:hover{
+    background: #00d8ff;
+  }
+  
+  
+  
