@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Contacts from "./pages/Contacts";
@@ -7,6 +7,7 @@ import Credits from "./pages/Credits";
 import Footer from "./footer/footer"; // Import Footer component
 import LogIn from './pages/LogIn';
 import SignUp from './pages/SignUp';
+import Header from './pages/Header'; // Import Header component
 
 // Accessibility imports
 import { AccessibilityProvider, useAccessibility } from './accessibility/AccessibilityContext';
@@ -32,18 +33,10 @@ function LayoutContent() {
       className={theme === 'dark' ? 'dark-theme' : 'light-theme'}
       style={{ fontSize: `${textSize}px`, minHeight: '100vh' }}
     >
+      {/* Header Component */}
+      <Header />
       <h1>{data}</h1>
       <p>Test Application</p>
-
-      {/* Navigation Links */}
-      <nav>
-        <ul>
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/about">About</Link></li>
-          <li><Link to="/contacts">Contacts</Link></li>
-          <li><Link to="/credits">Credits</Link></li>
-        </ul>
-      </nav>
 
       {/* Define Routes */}
       <Routes>
@@ -51,8 +44,8 @@ function LayoutContent() {
         <Route path="/about" element={<About />} />
         <Route path="/contacts" element={<Contacts />} />
         <Route path="/credits" element={<Credits />} />
-        <Route path="/login" element={<LogIn />} />
-        <Route path="/signup" element={<SignUp />} />
+        <Route path="/LogIn" element={<LogIn />} />
+        <Route path="/SignUp" element={<SignUp />} />
       </Routes>
 
       {/* Accessibility Button */}
