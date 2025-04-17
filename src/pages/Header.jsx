@@ -11,8 +11,14 @@ import "./Header.css";
             </Link>
             
             <nav className="nav-links">
+                <Link to="/about" className="about-button">About</Link>
+                <Link to="/contacts" className="contacts-button">Contacts</Link>
+                <Link to="/credits" className="credits-button">Credits</Link>
+            </nav>
+
+            <nav className="log-links">
                 <Link to="/login" className="login-button">Login</Link>
-                <Link to="/register" className="register-button">Register</Link>
+                <Link to="/register" className="register-button">Register</Link>   
             </nav>
             {/*TODO: Add styling to the header and navigation links later */}
         </header>
