@@ -122,5 +122,3 @@ class QuizManager {
 }
 
 module.exports = QuizManager;
-
-
