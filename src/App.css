@@ -1,8 +1,27 @@
-.center {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh; /* Full viewport height */
-  text-align: center;
+.dark-theme {
+    background-color: #121212;
+    color: #f1f1f1;
 }
+  
+.light-theme {
+    background-color: #ffffff;
+    color: #111111;
+}
+
+.accessibility-modal {
+    background-color: #f8f9fa;
+    color: #111;
+}
+  
+.dark-theme .accessibility-modal {
+    background-color: #2b2b2b;
+    color: #f1f1f1;
+}
+.center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full viewport height */
+    text-align: center;
+  }

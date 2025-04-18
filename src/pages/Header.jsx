@@ -17,8 +17,8 @@ import "./Header.css";
             </nav>
 
             <nav className="log-links">
-                <Link to="/login" className="login-button">Login</Link>
-                <Link to="/register" className="register-button">Register</Link>   
+                <Link to="/LogIn" className="login-button">LogIn</Link>
+                <Link to="/SignUp" className="register-button">SignUp</Link>   
             </nav>
             {/*TODO: Add styling to the header and navigation links later */}
         </header>
