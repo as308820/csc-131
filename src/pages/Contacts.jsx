@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import "./Contacts.css";
 
 const Contact = () => {
     // Store User's information
@@ -24,64 +25,60 @@ const Contact = () => {
     };
 
     return (
-        <div>
-            <h2 style={{ marginBottom: '20px' }}>Contact Page</h2>
-            <h3 style={{ marginBottom: '20px' }}>Contact Us!</h3>
-            <form onSubmit={handleSubmit}>
-                {/* Name */}
-                <h4 style={{ marginBottom: '10px' }}>Name</h4>
-                <input
-                    type="text"
-                    name="name"
-                    placeholder="Enter your name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    style={{ marginBottom: '20px' }}
-                />
-                {/* Email */}
-                <h4 style={{ marginBottom: '10px' }}>Email</h4>
-                <input
-                    type="email"
-                    name="email"
-                    placeholder="Enter your email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    style={{ marginBottom: '20px' }}
-                />
-                {/* Phone */}
-                <h4 style={{ marginBottom: '10px' }}>Phone Number</h4>
-                <input
-                    type="tel"
-                    name="phone"
-                    placeholder="Enter your phone number"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    style={{ marginBottom: '20px' }}
-                />
-                {/* Subject */}
-                <h4 style={{ marginBottom: '10px' }}>Subject</h4>
-                <input
-                    type="text"
-                    name="subject"
-                    placeholder="Enter the subject"
-                    value={formData.subject}
-                    onChange={handleChange}
-                    style={{ marginBottom: '20px' }}
-                />
-                {/* Message */}
-                <h4 style={{ marginBottom: '10px' }}>Message</h4>
-                <textarea
-                    name="message"
-                    placeholder="Enter your message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    style={{ marginBottom: '20px' }}
-                ></textarea>
-                {/* Submit Button */}
-                <button type="submit" style={{ marginTop: '20px' }}>
-                    Submit
-                </button>
-            </form>
+        <div className="contact-container">
+            <div className="contact-box">
+                <h3>Contact Us!</h3>
+                <form className="contact-form" onSubmit={handleSubmit}>
+                    {/* Name */}
+                    <h4>Name</h4>
+                    <input
+                        type="text"
+                        name="name"
+                        placeholder="Enter your name"
+                        value={formData.name}
+                        onChange={handleChange}
+                    />
+                    {/* Email */}
+                    <h4>Email</h4>
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="Enter your email"
+                        value={formData.email}
+                        onChange={handleChange}
+                    />
+                    {/* Phone */}
+                    <h4>Phone Number</h4>
+                    <input
+                        type="tel"
+                        name="phone"
+                        placeholder="Enter your phone number"
+                        value={formData.phone}
+                        onChange={handleChange}
+                    />
+                    {/* Subject */}
+                    <h4>Subject</h4>
+                    <input
+                        type="text"
+                        name="subject"
+                        placeholder="Enter the subject"
+                        value={formData.subject}
+                        onChange={handleChange}
+                    />
+                    {/* Message */}
+                    <h4>Message</h4>
+                    <textarea
+                        name="message"
+                        placeholder="Enter your message"
+                        value={formData.message}
+                        onChange={handleChange}
+                    ></textarea>
+                    {/* Submit Button */}
+                    <button type="submit">
+                        Submit
+                    </button>
+                </form>
+            </div>
         </div>
     );
 };

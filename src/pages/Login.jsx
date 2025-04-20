@@ -1,40 +1,37 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
+import "./LogIn.css"; // Import the CSS file for styling
 
-const Login = () => {
-    const [formData, setFormData] = useState({
-        email: '',
-        password: '',
-    });
+function LogIn() {
+  return (
+    <div className="login-container">
+      <div className="login-box">
+        <h2>Log In</h2>
+        <form>
+          {/* Username/Email Input */}
+          <input
+            type="text"
+            placeholder="Username"
+            className="login-input"
+          />
+          {/* Password Input */}
+          <input
+            type="password"
+            placeholder="Password"
+            className="login-input"
+          />
+          {/* Submit Button */}
+          <button type="submit" className="login-button">
+            Log In
+          </button>
+        </form>
+        {/* Sign Up Link */}
+        <p className="signup-text">
+          Don't have an account? <Link to="/signup">Sign up</Link>
+        </p>
+      </div>
+    </div>
+  );
+}
 
-    const handleChange = e => {
-        setFormData({...formData, [e.target.name]: e.target.value});
-    };
-    
-    const handleSubmit = e => {
-        e.preventDefault();
-        console.log("Login Data:", formData);
-        //add backend call here later
-    };
-
-    return (
-        <div>
-            <h1>Login</h1>
-            <form onSubmit={handleSubmit}>
-                <label>Email:
-                    <input type="email" name="email" value={formData.email} onChange={handleChange} require />
-                </label>
-                <br />
-                <label>Password:
-                    <input type="password" name="password" value={formData.password} onChange={handleChange} require />
-                </label>
-                <button type="submit">Login</button>
-            </form>
-            <p>
-                Don't have an account? <Link to="/register">Sign Up</Link>
-            </p>
-        </div>
-    );
-};
-
-export default Login;
+export default LogIn;

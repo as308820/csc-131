@@ -25,3 +25,28 @@
     height: 100vh; /* Full viewport height */
     text-align: center;
   }
+/* Remove default browser spacing */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Make sure body and html fill the whole height */
+  html, body {
+    height: 100%;
+  }
+  
+  /* Make your main app wrapper stretch fully */
+  #root {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Make the main content grow to push footer down */
+  main {
+    flex: 1;
+  }
+  
+ 

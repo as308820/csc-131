@@ -35,8 +35,8 @@ function LayoutContent() {
     >
       {/* Header Component */}
       <Header />
-      <h1>{data}</h1>
-      <p>Test Application</p>
+      <h1></h1>
+      <p></p>
 
       {/* Define Routes */}
       <Routes>
