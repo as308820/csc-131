@@ -7,7 +7,7 @@ import "./Header.css";
      return (
          <header className="header">
             <Link to="/" className="logo-link">
-                <img src="/logo.webp" alt="Quiz App Logo" className="logo" />
+                <img src="Headshots/logo.svg" alt="Quiz App Logo" className="logo" />
             </Link>
             
             <nav className="nav-links">

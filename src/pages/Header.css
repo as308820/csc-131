@@ -17,7 +17,8 @@
   }
 
   .logo{
-    height: 60px;
+    color:#3e4a4d;
+    height: 70px;
     width: auto;
     border-radius: 50%;
     /*border: 2px solid #00d8ff;*/
@@ -28,6 +29,8 @@
     margin-right: 10px;
 
   }
+
+  
   
   .log-links{
     display: flex;
@@ -66,8 +69,10 @@
   
   .about-button:hover, .contacts-button:hover, .credits-button:hover {
     color: #ffffff;
+    transform: scale(1.10);
   }
 
   .logo:hover{
-    background: #ffffff;
+    filter: brightness(0) invert(1);
+    transform: scale(1.10);
   }

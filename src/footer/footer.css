@@ -23,7 +23,7 @@ html, body {
 
 /* Update the main content area if needed */
 .quiz-box {
-    flex: 1 0 auto; /* This will make the content area expand */
+    flex: 1; /* This will make the content area expand */
 }
 
 /* Update the footer class */
