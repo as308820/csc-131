@@ -1,7 +1,7 @@
 // server.js
 const express = require("express");
 const cors = require("cors");
-const QuizManager = require("./testMongo"); // your QuizManager file
+const QuizManager = require("../backend/testMongo"); // your QuizManager file
 
 const app = express();
 const port = 3000;

@@ -4,8 +4,8 @@ const morgan = require("morgan");
 const cors = require("cors");
 require("dotenv").config();
 
-// Load your QuizManager class
-const QuizManager = require("./testMongo");
+// Load QuizManager class
+const QuizManager = require("./services/quizManager");
 const quizManager = new QuizManager();
 
 // Initialize app
@@ -33,9 +33,9 @@ app.get("/api/quizzes", async (req, res) => {
   }
 });
 
-// Example for using external routes (if needed)
-const testRoutes = require("./routes/test");
-app.use("/", testRoutes);
+// external routes
+const quizRoutes = require('./routes/quiz');
+app.use(quizRoutes);
 
 // Server
 const port = process.env.PORT || 8080;
