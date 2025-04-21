@@ -4,7 +4,8 @@ import fb from '../images/fbimg.png'
 import x from '../images/ximg.png'
 import instagram from '../images/igimg.jpeg'
 import linkedin from '../images/linkedinimg.png'
-import csus from '../images/csus.png'
+import github from '../images/githubimg.jpeg'
+
 
 
 
@@ -13,19 +14,7 @@ const Footer=()=>{
         <div className="footer">
             <div className="sb__footer section__padding">
                 <div className="sb__footer-links">
-                   
-                   <a href="/For Business">
-                        <p>For Business </p>
-                    </a>
-                    <a href="/Employer">
-                        <p>Employer </p>
-                    </a>
-                    <a href="/healthplan">
-                        <p>Health Plan </p>
-                    </a>
-                    <a href="/individual">
-                        <p>Individual </p>
-                    </a>
+              
 
                 </div>
                
@@ -62,8 +51,8 @@ const Footer=()=>{
       </a>
     </p>
     <p>
-      <a href="https://www.csus.edu/" target="_blank" rel="noopener noreferrer">
-        <img src={csus} alt="CSUS" />
+      <a href="https://github.com/as308820/AMC-Website" target="_blank" rel="noopener noreferrer">
+        <img src={github} alt="Github" />
       </a>
     </p>
   </div>
@@ -97,4 +86,4 @@ const Footer=()=>{
     )
 
 }
-export default Footer;
+export  default Footer;
