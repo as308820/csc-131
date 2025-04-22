@@ -21,7 +21,7 @@ function LayoutContent() {
 
   return (
     <div
-      className={theme === 'dark' ? 'dark-theme' : 'light-theme'}
+      className={`app-container ${theme}`}
       style={{ fontSize: `${textSize}px`, minHeight: '100vh' }}
     >
       {/* Header Component */}

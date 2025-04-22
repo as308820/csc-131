@@ -1,27 +1,58 @@
-.dark-theme {
-    background-color: #121212;
-    color: #f1f1f1;
+.light {
+    /* general theme */
+    --bg-color: #ffffff;
+    --text-color: #111111;
+    
+    /* accessibility window */
+    --modal-bg: #f8f9fa;
+    --modal-text: #111;
+
+    /* quiz manager cards */
+    --card-bg: #f9f9f9;
+    --button-bg: crimson;
+
+    /* card buttons */
+    --button-hover-bg: darkred;
+    --button-text: white;
 }
-  
-.light-theme {
-    background-color: #ffffff;
-    color: #111111;
+
+.dark {
+    /* general theme */
+    --bg-color: #121212;
+    --text-color: #f1f1f1;
+    
+    /* accessibility window */
+    --modal-bg: #2b2b2b;
+    --modal-text: #f1f1f1;
+
+    /* quiz manager cards */
+    --card-bg:#2d2d2d;
+    --button-bg: #b22222;
+
+    /* card buttons */
+    --button-hover-bg: #8b0000;
+    --button-text: #fff;
+}
+
+body,
+.app-container {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .accessibility-modal {
-    background-color: #f8f9fa;
-    color: #111;
+    background-color: var(--modal-bg);
+    color: var(--modal-text);
+    border-radius: 8px;
+    padding: 1rem;
 }
-  
-.dark-theme .accessibility-modal {
-    background-color: #2b2b2b;
-    color: #f1f1f1;
-}
+
 .center {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Full viewport height */
+    height: 100vh;
     text-align: center;
-  }
+}
