@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const QuizManager = require("../services/quizManager");
+const { MongoClient, ObjectId } = require("mongodb");
+const uri = "mongodb://127.0.0.1:27017";
 
 const quizManager = new QuizManager();
 
@@ -28,9 +30,23 @@ router.post("/api/quizzes", async (req, res) => {
 // DELETE a quiz
 router.delete("/api/quizzes/:id", async (req, res) => {
   try {
-    await quizManager.deleteQuiz(req.params.id);
-    res.sendStatus(204);
+    const client = new MongoClient(uri);
+    await client.connect();
+
+    const db = client.db("quizDB");
+    const collection = db.collection("quizzes");
+
+    const result = await collection.deleteOne({ _id: new ObjectId(req.params.id) });
+
+    client.close();
+
+    if (result.deletedCount === 0) {
+      return res.status(404).json({ message: "Quiz not found" });
+    }
+
+    res.status(204).send();
   } catch (err) {
+    console.error(err);
     res.status(500).json({ error: "Failed to delete quiz" });
   }
 });

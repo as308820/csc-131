@@ -1,3 +1,4 @@
+import "./ManageQuizzes.css";
 import React, { useEffect, useState } from "react";
 
 export default function ManageQuizzes() {
@@ -18,6 +19,21 @@ export default function ManageQuizzes() {
       });
   }, []);
 
+  const handleDelete = async (id) => {
+    if (!window.confirm("Are you sure you want to delete this quiz?")) return;
+  
+    try {
+      const res = await fetch(`/api/quizzes/${id}`, { method: "DELETE" });
+      if (res.ok) {
+        setQuizzes(quizzes.filter((q) => q._id !== id));
+      } else {
+        console.error("Failed to delete quiz");
+      }
+    } catch (err) {
+      console.error("Error deleting quiz:", err);
+    }
+  };
+
   return (
     <div className="manage-quizzes">
       <h2>Manage Quizzes</h2>
@@ -26,14 +42,14 @@ export default function ManageQuizzes() {
       ) : quizzes.length === 0 ? (
         <p>No quizzes available.</p>
       ) : (
-        <ul style={{ listStyle: "none", padding: 0 }}>
-          {quizzes.map((quiz) => (
-            <li key={quiz._id} style={{ display: "flex", justifyContent: "space-between", margin: "1rem 0" }}>
-              <span>{quiz.title}</span>
-              {/* Add Delete Button Here */}
-            </li>
-          ))}
-        </ul>
+        <div className="quiz-list">
+            {quizzes.map((quiz) => (
+                <div className="quiz-card" key={quiz._id}>
+                <h3>{quiz.title}</h3>
+                <button onClick={() => handleDelete(quiz._id)}>Delete</button>
+                </div>
+            ))}
+        </div>
       )}
     </div>
   );

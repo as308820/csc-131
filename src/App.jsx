@@ -13,20 +13,11 @@ import Header from './pages/Header'; // Import Header component
 import { AccessibilityProvider, useAccessibility } from './accessibility/AccessibilityContext';
 import AccessibilityButton from "./accessibility/AccessibilityButton";
 
-import { useState, useEffect } from 'react';
-
-//functions
-import { getTest } from "./functions/test";
+//quiz manager test imports (should be refactored when login system is available)
+import ManageQuizzes from './pages/ManageQuizzes';
 
 function LayoutContent() {
   const { theme, textSize } = useAccessibility();
-  const [data, setData] = useState("Test Application");
-
-  useEffect(() => {
-    getTest()
-      .then((res) => setData(res.message))
-      .catch((err) => console.log(err));
-  }, []);
 
   return (
     <div
@@ -35,8 +26,6 @@ function LayoutContent() {
     >
       {/* Header Component */}
       <Header />
-      <h1>{data}</h1>
-      <p>Test Application</p>
 
       {/* Define Routes */}
       <Routes>
@@ -46,6 +35,9 @@ function LayoutContent() {
         <Route path="/credits" element={<Credits />} />
         <Route path="/LogIn" element={<LogIn />} />
         <Route path="/SignUp" element={<SignUp />} />
+
+        {/* Test route for quiz manager*/}
+        <Route path="/manage-quizzes" element={<ManageQuizzes />} />
       </Routes>
 
       {/* Accessibility Button */}

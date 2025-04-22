@@ -14,6 +14,9 @@ import "./Header.css";
                 <Link to="/about" className="about-button">About</Link>
                 <Link to="/contacts" className="contacts-button">Contacts</Link>
                 <Link to="/credits" className="credits-button">Credits</Link>
+
+                {/*Test link to quiz manager */}
+                <Link to="/manage-quizzes" className="about-button">[Dev Only] Manage Quizzes</Link>
             </nav>
 
             <nav className="log-links">
