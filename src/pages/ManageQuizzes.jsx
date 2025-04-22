@@ -19,6 +19,11 @@ export default function ManageQuizzes() {
       });
   }, []);
 
+  const handleEdit = (id) => {
+    // Navigate to edit page for this quiz
+    window.location.href = `/edit-quiz/${id}`;
+  };
+
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this quiz?")) return;
   
@@ -44,10 +49,22 @@ export default function ManageQuizzes() {
       ) : (
         <div className="quiz-list">
             {quizzes.map((quiz) => (
-                <div className="quiz-card" key={quiz._id}>
-                <h3>{quiz.title}</h3>
-                <button onClick={() => handleDelete(quiz._id)}>Delete</button>
+              <div className="quiz-card" key={quiz._id}>
+                <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
+                  <button
+                    className="edit-button"
+                    onClick={() => handleEdit(quiz._id)}
+                  >
+                    {quiz.title}
+                  </button>
+                  <button
+                    className="delete-button"
+                    onClick={() => handleDelete(quiz._id)}
+                  >
+                    Delete
+                  </button>
                 </div>
+              </div>
             ))}
         </div>
       )}
