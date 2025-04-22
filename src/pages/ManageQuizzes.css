@@ -5,28 +5,30 @@
   padding: 1rem;
   max-width: 600px;
   margin: 0 auto;
+  transition: 0.3s ease;
 }
 
 .quiz-card {
+  font-size: inherit;
   background-color: var(--card-bg);
   color: var(--text-color);
   border-radius: 24px;
   padding: 1.5rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  transition: transform 0.2s ease;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: var(--global-transition);
+  transition: var(--global-btn-transition);
 }
 .quiz-card:hover {
   transform: translateY(-2px);
 }
 
 .quiz-card button {
+  font-size: inherit;
   background-color: var(--button-bg);
   color: var(--button-text);
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: var(--global-btn-transition);
   padding: 0.5rem 1rem;
   border-radius: 6px;
   cursor: pointer;
@@ -43,7 +45,7 @@
   border-radius: 6px;
   cursor: pointer;
   font-weight: bold;
-  transition: var(--global-transition);
+  transition: var(--global-btn-transition);
 }
 
 .edit-button:hover {
