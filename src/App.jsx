@@ -8,6 +8,8 @@ import Footer from "./footer/footer"; // Import Footer component
 import LogIn from './pages/LogIn';
 import SignUp from './pages/SignUp';
 import Header from './pages/Header'; // Import Header component
+import NotFound from './pages/NotFound'; //Import 404 compnent 
+
 
 // Accessibility imports
 import { AccessibilityProvider, useAccessibility } from './accessibility/AccessibilityContext';
@@ -35,7 +37,6 @@ function LayoutContent() {
     >
       {/* Header Component */}
       <Header />
-      <h1></h1>
       <p></p>
 
       {/* Define Routes */}
@@ -46,6 +47,7 @@ function LayoutContent() {
         <Route path="/credits" element={<Credits />} />
         <Route path="/LogIn" element={<LogIn />} />
         <Route path="/SignUp" element={<SignUp />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
 
       {/* Accessibility Button */}

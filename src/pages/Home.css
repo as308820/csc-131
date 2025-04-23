@@ -2,10 +2,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    max-width: 1200px;
+    width: 1200px;
     box-sizing: border-box;
     min-height: calc(70vh - 20px);
-    margin: 0rem 20rem;
+    margin: 0 auto;
+    padding: 0 2rem;
     gap: 2rem;
     flex-wrap: nowrap;
 }
@@ -18,7 +19,7 @@
 }
 
 .big-brand, .big-text {
-    font-size: clamp(1.2rem, 3vw, 2rem);
+    font-size: clamp(1.2rem, 2vw, 1.8rem);
     line-height: 1.4;
     max-width: 600px;
 
@@ -44,7 +45,7 @@
 
 @media (max-width: 600px) {
     .home-container {
-        flex-direction: column; 
+        /*flex-direction: column; */
         align-items: center;    
     }
 
