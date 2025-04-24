@@ -22,14 +22,10 @@ import { getTest } from "./functions/test";
 
 function LayoutContent() {
   const { theme, textSize } = useAccessibility();
-function LayoutContent() {
-  const { theme, textSize } = useAccessibility();
   const [data, setData] = useState("Test Application");
 
   useEffect(() => {
     getTest()
-      .then((res) => setData(res.message))
-      .catch((err) => console.log(err));
       .then((res) => setData(res.message))
       .catch((err) => console.log(err));
   }, []);
