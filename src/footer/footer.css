@@ -1,0 +1,187 @@
+/* Update the html and body styles */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure the body takes up the full viewport height */
+}
+
+.section_padding{
+    padding: 4rem 4rem;
+}
+
+/* Update the page container */
+.page-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0; /* Remove the previous margin */
+    flex: 1; /* Allow the container to grow and fill available space */
+}
+
+/* Update the main content area if needed */
+.quiz-box {
+    flex: 1; /* This will make the content area expand */
+}
+
+/* Update the footer class */
+.footer {
+    width: 100%; /* Change to viewport width */
+    background-color: rgb(84, 80, 80);
+    padding: 20px 0;
+    position: relative;
+    margin-top: auto;
+    box-sizing: border-box;
+    flex-shrink: 0; /* Prevent the footer from shrinking */
+}
+
+/* Update the sb__footer class to maintain content width */
+.sb__footer {
+    max-width: 1200px;
+    margin: 0 auto;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    padding: 0 20px; /* Add padding to keep content from touching edges */
+    box-sizing: border-box;
+    padding: 0 20px; /* Add padding to keep content from touching edges */
+    box-sizing: border-box;
+}
+
+.sb__footer-links {
+    display: flex;
+    flex-wrap: wrap; /* Ensure content wraps properly */
+    justify-content: space-between; /* Space out the links */
+    align-items: flex-start;
+    flex-direction: row;
+    width: 100%;
+    text-align: left;
+    margin-bottom: 2rem;
+}
+
+.sb__footer-links_div{
+    width: 150px;
+    margin: 1rem;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    color: white;
+}
+
+a{
+    color: rgb(red, green, blue);
+    text-decoration: none;
+
+}
+
+.socialmedia{
+    display: flex;
+    flex-direction: row;
+    gap: 20px; /* Add spacing between the logos */
+}
+
+.socialmedia img{
+   
+    width: 100%; /* Increase the size of the logos */
+    max-width: 60px; /* Set a maximum width for better control */
+    margin: 0 10px;
+}
+
+.sb__footer-links_div h4{
+    font-size: 14px;
+    line-height: 17px;
+    margin-bottom: 0.9rem;
+}
+
+.sb__footer-links_div p{
+    font-size: 12px;
+    line-height: 15px;
+    margin: 0.5rem 0;
+    cursor: pointer;
+}
+
+.sb__footer-below {
+    display: flex;
+    flex-wrap: wrap; /* Ensure content wraps properly */
+    justify-content: space-between; /* Space out the links */
+    flex-direction: row;
+    margin-top: 20px; /* Add spacing between sections */
+}
+
+.sb__footer-below-links{
+    display: flex;
+    flex-direction: row;
+
+}
+
+.sb__footer-below-links p{
+    font-size: 13px;
+    line-height: 15px;
+    margin-left: 2rem;
+    color: white;
+    font-weight: 600;
+
+}
+
+hr{
+    color: white !important;
+    width: 100%;
+
+}
+
+.sb__footer-copyright p{
+    font-size: 13px;
+    line-height: 15px;
+    color: white; /* Corrected to use the valid 'white' keyword */
+    font-weight: 600;
+
+}
+
+@media screen and (max-width: 850px) {
+    .sb__footer-heading h1{
+        font-size: 44px;
+        line-height: 50px;
+    }
+    
+}
+
+@media screen and (max-width: 550px) {
+    .sb__footer-heading h1{
+        font-size: 34px;
+        line-height: 42px;
+    }
+    .sb__footer-links div{
+        margin: 1rem 0;
+    }
+    .sb__footer-btn p{
+        font-size: 14px;
+        line-height: 20px;
+
+    }
+    .sb__footer-below{
+        flex-direction: column;
+        justify-content: left;
+
+    }
+    .sb__footer-below-links{
+        flex-direction: column;
+        
+    }
+    .sb__footer-below-links{
+        margin-left: 0rem;
+        margin-top: 1rem;
+
+    }
+    
+}
+
+@media screen and (max-width: 400px) {
+    .sb__footer-heading h1{
+        font-size: 27px;
+        line-height: 38px;
+    }
+
+}

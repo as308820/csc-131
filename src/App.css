@@ -1,0 +1,64 @@
+.light {
+    /* general theme */
+    --bg-color: #ffffff;
+    --text-color: #111111;
+    --global-transition: background-color 1.5s ease, color 0.3s ease;
+    --global-btn-transition: background-color 0.3s ease, color 0.3s ease;
+    --header-bg-color: #26a8ff;
+    
+    /* accessibility window */
+    --modal-bg: #f8f9fa;
+    --modal-text: #111;
+    --modal-theme-btn: #343a40;
+    --modal-theme-btn-hover: #00d8ff;
+
+    /* quiz manager cards */
+    --card-bg: #f9f9f9;
+
+    /* card buttons */
+    --button-border: 2px solid #00d8ff;
+    --button-bg: #c1efff7f;
+    --button-hover-bg: #00d8ff;
+    --button-text: black;
+}
+
+.dark {
+    /* general theme */
+    --bg-color: #121212;
+    --text-color: #f1f1f1;
+    --global-transition: background-color 1.5s ease, color 0.3s ease;
+    --global-btn-transition: 0.3s ease;
+    --header-bg-color: #282c34;
+    
+    /* accessibility window */
+    --modal-bg: #2b2b2b;
+    --modal-text: #f1f1f1;
+    --modal-theme-btn: #c1efff7f;
+    --modal-theme-btn-hover: #00d8ff;
+
+    /* quiz manager cards */
+    --card-bg:#282c34;
+
+    /* card buttons */
+    --button-border: 2px solid #00d8ff;
+    --button-bg: #transparent;
+    --button-hover-bg: #00d8ff;
+    --button-text: #fff;
+}
+
+body,
+.app-container {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: var(--global-transition);
+}
+.center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full viewport height */
+    text-align: center;
+  }
+
+ 

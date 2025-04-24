@@ -1,0 +1,19 @@
+.about-container {
+    min-height: calc(70vh - 25px);
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 4rem;
+    box-sizing: border-box;
+}
+
+.about-content {
+    text-align: left;
+    max-width: 600px;
+}
+
+.about-content p{
+    font-size: 1rem;
+    line-height: 1.6;
+}

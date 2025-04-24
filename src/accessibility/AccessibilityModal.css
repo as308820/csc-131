@@ -1,0 +1,82 @@
+.accessibility-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--modal-bg);
+  transition: var(--global-transition);
+  padding: 2rem;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  z-index: 1100;
+  border-radius: 24px;
+  min-width: 320px;
+  font-family: sans-serif;
+}
+
+.accessibility-close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 1.2rem;
+  background-color: var(--button-bg);
+  color: var(--button-text);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.accessibility-close-btn:hover {
+  background-color: var(--button-hover-bg);
+  transition: var(--global-btn-transition);
+}
+
+.accessibility-slider {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.accessibility-button {
+  position: fixed;
+  font-size: inherit;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  padding: 0.5rem 1rem;
+  background-color: var(--button-bg);
+  color: var(--button-text);
+  border: var(--button-border);
+  transition: var(--global-btn-transition);
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.accessibility-button:hover {
+  background-color: var(--button-hover-bg);
+  transition: var(--global-btn-transition);
+  color: var(--button-text);
+}
+
+
+.accessibility-toggle {
+  font-size: inherit;
+  padding: 8px 16px;
+  margin-top: 12px;
+  background-color: var(--modal-theme-btn);
+  transition: var(--global-btn-transition);
+  color: white;
+  border: var(--button-border);
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.accessibility-toggle:hover {
+  padding: 8px 16px;
+  margin-top: 12px;
+  background-color: var(--modal-theme-btn-hover);
+  color: var(--button-text);
+  border: var(--button-border);
+  border-radius: 12px;
+  cursor: pointer;
+}
