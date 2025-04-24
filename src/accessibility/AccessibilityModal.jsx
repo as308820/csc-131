@@ -1,6 +1,7 @@
 import React from 'react';
 import { useAccessibility } from './AccessibilityContext';
 import './AccessibilityModal.css';
+import '../App.css';
 
 export default function AccessibilityModal({ onClose }) {
   const { theme, setTheme, textSize, setTextSize } = useAccessibility();

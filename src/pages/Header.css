@@ -43,10 +43,11 @@
     gap: 1rem;
     margin-right: auto;
   }
-
-  .login-button {
-    background: #a6cafa;
-    color: #3e4a4d;
+  
+  .login-button, .register-button, .about-button, .contacts-button, .credits-button {
+    border: var(--button-border);
+    background: var(--button-bg);
+    color: var(--text-color);
     padding: 0.4rem 0.9rem;
     text-decoration: none;
     border-radius: 5px;

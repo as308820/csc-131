@@ -41,8 +41,12 @@ html, body {
 .sb__footer {
     max-width: 1200px;
     margin: 0 auto;
+    max-width: 1200px;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
+    padding: 0 20px; /* Add padding to keep content from touching edges */
+    box-sizing: border-box;
     padding: 0 20px; /* Add padding to keep content from touching edges */
     box-sizing: border-box;
 }

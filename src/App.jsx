@@ -9,35 +9,26 @@ import LogIn from './pages/LogIn';
 import SignUp from './pages/SignUp';
 import Header from './pages/Header'; // Import Header component
 import NotFound from './pages/NotFound'; //Import 404 compnent 
+import AccessibilityButton from "./accessibility/AccessibilityButton";
+
 
 
 // Accessibility imports
 import { AccessibilityProvider, useAccessibility } from './accessibility/AccessibilityContext';
-import AccessibilityButton from "./accessibility/AccessibilityButton";
 
-import { useState, useEffect } from 'react';
-
-//functions
-import { getTest } from "./functions/test";
+//quiz manager test imports (should be refactored when login system is available)
+import ManageQuizzes from './pages/ManageQuizzes';
 
 function LayoutContent() {
   const { theme, textSize } = useAccessibility();
-  const [data, setData] = useState("Test Application");
-
-  useEffect(() => {
-    getTest()
-      .then((res) => setData(res.message))
-      .catch((err) => console.log(err));
-  }, []);
 
   return (
     <div
-      className={theme === 'dark' ? 'dark-theme' : 'light-theme'}
+      className={`app-container ${theme}`}
       style={{ fontSize: `${textSize}px`, minHeight: '100vh' }}
     >
       {/* Header Component */}
       <Header />
-      <p></p>
 
       {/* Define Routes */}
       <Routes>
@@ -48,6 +39,10 @@ function LayoutContent() {
         <Route path="/LogIn" element={<LogIn />} />
         <Route path="/SignUp" element={<SignUp />} />
         <Route path="*" element={<NotFound />} />
+
+
+        {/* Test route for quiz manager*/}
+        <Route path="/manage-quizzes" element={<ManageQuizzes />} />
       </Routes>
 
       {/* Accessibility Button */}
