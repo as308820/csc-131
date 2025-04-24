@@ -11,6 +11,7 @@ import "./Header.css";
             </Link>
             
             <nav className="nav-links">
+                <Link to="/" className="home-button">Home</Link>
                 <Link to="/about" className="about-button">About</Link>
                 <Link to="/contacts" className="contacts-button">Contacts</Link>
                 <Link to="/credits" className="credits-button">Credits</Link>

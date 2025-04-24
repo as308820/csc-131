@@ -44,7 +44,7 @@
     margin-right: auto;
   }
   
-  .login-button, .register-button, .about-button, .contacts-button, .credits-button {
+  .home-button, .login-button, .register-button, .about-button, .contacts-button, .credits-button {
     border: var(--button-border);
     background: var(--button-bg);
     color: var(--text-color);
@@ -54,7 +54,7 @@
     transition: 0.3s ease;
   }
   
-  .about-button, .contacts-button, .credits-button {
+  .home-button, .about-button, .contacts-button, .credits-button {
     /*border: 2px solid #00d8ff;*/
     background: transparent;
     color:#3e4a4d;
@@ -68,7 +68,7 @@
     background: #3e4a4d;
   }
   
-  .about-button:hover, .contacts-button:hover, .credits-button:hover {
+  .home-button:hover, .about-button:hover, .contacts-button:hover, .credits-button:hover {
     color: #ffffff;
     transform: scale(1.10);
   }
