@@ -4,8 +4,24 @@
   <meta charset="UTF-8">
   <title>Create Quiz</title>
   <style>
-    .question-block { border: 1px solid #ccc; padding: 10px; margin-bottom: 15px; }
+    .question-block { 
+      border: 1px solid #ccc; 
+      padding: 10px; 
+      margin-bottom: 15px; 
+      position: relative;
+    }
     .option-input { margin-left: 20px; }
+    .delete-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: #f44336;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
   </style>
 </head>
 <body>
@@ -16,7 +32,7 @@
     <label>Duration (minutes): <input type="number" id="quizDuration" required></label><br><br>
     <label for="numQuestionsToShow">Number of Questions to Show:</label>
     <input type="number" id="numQuestionsToShow" name="numQuestionsToShow" min="1">
-    <br>
+    <br><br>
 
     <div id="questionsContainer"></div>
 
@@ -36,6 +52,7 @@
       questionDiv.id = `question-${qIndex}`;
 
       questionDiv.innerHTML = `
+        <button type="button" class="delete-btn" onclick="deleteQuestion('${qIndex}')">Delete</button>
         <label>Question Text:
           <input type="text" name="question-${qIndex}-text" required>
         </label><br><br>
@@ -53,7 +70,7 @@
 
       container.appendChild(questionDiv);
 
-      updateOptions(qIndex, 4); // default to 4 options
+      updateOptions(qIndex, 4); // Default to 4 options
     }
 
     function updateOptions(qIndex, count) {
@@ -84,6 +101,13 @@
       }
     }
 
+    function deleteQuestion(qIndex) {
+      const questionDiv = document.getElementById(`question-${qIndex}`);
+      if (questionDiv) {
+        questionDiv.remove();
+      }
+    }
+
     document.getElementById("quizForm").addEventListener("submit", async function (e) {
       e.preventDefault();
 
@@ -94,9 +118,14 @@
         questions: [],
       };
 
-      for (let i = 0; i < questionCount; i++) {
-        const questionText = document.querySelector(`[name=question-${i}-text]`);
-        if (!questionText) continue; // skip deleted or missing questions
+      const container = document.getElementById('questionsContainer');
+      const questionDivs = container.getElementsByClassName('question-block');
+
+      for (let div of questionDivs) {
+        const qId = div.id.split('-')[1];
+        const questionText = div.querySelector(`[name=question-${qId}-text]`);
+
+        if (!questionText) continue; // skip if missing
 
         const question = {
           question: questionText.value,
@@ -106,13 +135,13 @@
 
         let optionIndex = 0;
         while (true) {
-          const opt = document.querySelector(`[name=question-${i}-option-${optionIndex}]`);
+          const opt = div.querySelector(`[name=question-${qId}-option-${optionIndex}]`);
           if (!opt) break;
           question.options.push(opt.value);
           optionIndex++;
         }
 
-        const correctSelect = document.getElementById(`correct-${i}`);
+        const correctSelect = div.querySelector(`#correct-${qId}`);
         const correctIndex = parseInt(correctSelect.value);
         question.answer = question.options[correctIndex];
 
