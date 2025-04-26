@@ -1,19 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Create Quiz</title>
-  <style>
-    .question-block { border: 1px solid #ccc; padding: 10px; margin-bottom: 15px; }
-    .option-input { margin-left: 20px; }
-  </style>
-</head>
+  <head>
+    <meta charset="UTF-8">
+    <title>Quiz Creater</title>
+    <style>
+      body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f9f9f9;
+        margin: 0;
+        padding: 0;
+        color: #333;
+      }
+  
+      h1 {
+        text-align: center;
+        color: #2d88ff;
+        margin-top: 20px;
+        font-size: 2.5em;
+      }
+      /* This is the box where user input stuff are */
+      form {
+        max-width: 900px;
+        margin: 20px auto;
+        background: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+      /* Spacing between user input */
+      label {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 5px;
+      }
+  
+      input[type="text"],
+      input[type="number"],
+      /* User input box size */
+      select {
+        width: 97%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 2px solid #cccccc98;
+        border-radius: 5px;
+        font-size: 1em;
+      }
+      /* Box that holds the question text and ect. */
+      .question-block {
+        border: 1px solid #e0e0e0;
+        background-color: #fdfdfd;
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      
+      .option-input {
+        margin-left: 0;
+        width: calc(100% - 20px);
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+  
+      button {
+        background-color: #2d88ff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 1em;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+  
+      button:hover {
+        background-color: #1c6ed2;
+      }
+  
+      button:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+      }
+  
+      #questionsContainer {
+        margin-top: 20px;
+      }
+  
+      /* Add responsiveness */
+      @media (max-width: 768px) {
+        form {
+          padding: 15px;
+        }
+  
+        h1 {
+          font-size: 2em;
+        }
+      }
+    </style>
+  </head>
 <body>
-  <h1>Create a New Quiz</h1>
+  <h1>Quiz Creator</h1>
 
   <form id="quizForm">
     <label>Quiz Title: <input type="text" id="quizTitle" required></label><br><br>
-    <label>Duration (minutes): <input type="number" id="quizDuration" required></label><br><br>
+    <label>Test duration (minutes): <input type="number" id="quizDuration" required></label><br><br>
+    <label for="numQuestionsToShow">Number of Questions to Show:</label>
+    <input type="number" id="numQuestionsToShow" name="numQuestionsToShow" min="1">
+    <br>
 
     <div id="questionsContainer"></div>
 
@@ -87,6 +182,7 @@
       const quiz = {
         title: document.getElementById("quizTitle").value,
         duration: parseInt(document.getElementById("quizDuration").value),
+        numQuestionsToShow: parseInt(document.getElementById("numQuestionsToShow").value),
         questions: [],
       };
 
