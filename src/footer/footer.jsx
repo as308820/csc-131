@@ -6,9 +6,6 @@ import instagram from '../images/igimg.jpeg'
 import linkedin from '../images/linkedinimg.png'
 import github from '../images/githubimg.jpeg'
 
-
-
-
 const Footer=()=>{
   return (
     <div className="footer">

@@ -24,7 +24,7 @@ import { AuthContext } from '../context/AuthContext';
 
             {user ? (
                 <nav className='nav-links'>
-                <span class="displayUsername">Welcome, {user.name}</span>
+                <span className="displayUsername">Welcome, {user.name}</span>
                 <button className="logout-button" onClick={logout}>Logout</button>
                 </nav>
             ) : (

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .question-container {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Quiz Page</h1>
+
+    <div id="quiz-container">
+        <!-- Quiz questions will be injected here -->
+    </div>
+
+    <script>
+    let currentQuiz = null;
+    let quizStartTime = null;
+    let quizTimer = null;
+    let timeRemaining = 0;
+
+    async function loadQuizSelector() {
+        const response = await fetch('http://localhost:3000/api/quizzes');
+        const quizzes = await response.json();
+        currentQuiz = quizzes;
+
+        const selector = document.createElement('select');
+        selector.id = 'quiz-selector';
+
+        const defaultOption = document.createElement('option');
+        defaultOption.value = '';
+        defaultOption.textContent = '-- Select a quiz --';
+        selector.appendChild(defaultOption);
+
+        quizzes.forEach((quiz, index) => {
+            const option = document.createElement('option');
+            option.value = index;
+            option.textContent = quiz.title;
+            selector.appendChild(option);
+        });
+
+        document.body.insertBefore(selector, document.getElementById('quiz-container'));
+
+        selector.addEventListener('change', (e) => {
+            const selectedQuiz = quizzes[e.target.value];
+            if (selectedQuiz) {
+                renderQuiz(selectedQuiz);
+            }
+        });
+    }
+
+    function renderQuiz(quiz) {
+        clearInterval(quizTimer); // Clear previous timer
+        const quizContainer = document.getElementById('quiz-container');
+        quizContainer.innerHTML = '';
+
+        quizStartTime = new Date();
+        timeRemaining = quiz.duration * 60;
+
+        const timerDisplay = document.createElement('p');
+        timerDisplay.id = 'timer';
+        timerDisplay.textContent = formatTime(timeRemaining);
+        quizContainer.appendChild(timerDisplay);
+
+        quizTimer = setInterval(() => {
+            timeRemaining--;
+            timerDisplay.textContent = formatTime(timeRemaining);
+            if (timeRemaining <= 0) {
+                clearInterval(quizTimer);
+                gradeQuiz(quiz, true); // Auto submit
+            }
+        }, 1000);
+
+// Helper to format time as mm:ss
+function formatTime(seconds) {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `Time remaining: ${mins}m ${secs < 10 ? '0' : ''}${secs}s`;
+}
+
+
+        const quizDiv = document.createElement('div');
+        quizDiv.classList.add('quiz');
+
+        quiz.questions.forEach((question, index) => {
+            const questionDiv = document.createElement('div');
+            questionDiv.classList.add('question-container');
+
+            const questionTitle = document.createElement('p');
+            questionTitle.textContent = `${index + 1}. ${question.question}`;
+            questionDiv.appendChild(questionTitle);
+
+            const isMultiple = Array.isArray(question.answer) && question.answer.length > 1;
+
+            question.options.forEach((option, i) => {
+                const optionLabel = document.createElement('label');
+                optionLabel.style.display = 'block';
+
+                const optionInput = document.createElement('input');
+                optionInput.type = isMultiple ? 'checkbox' : 'radio';
+                optionInput.name = `question${index}${isMultiple ? '[]' : ''}`;
+                optionInput.value = option;
+
+                optionLabel.appendChild(optionInput);
+                optionLabel.appendChild(document.createTextNode(option));
+                questionDiv.appendChild(optionLabel);
+            });
+
+            quizDiv.appendChild(questionDiv);
+        });
+
+        const submitBtn = document.createElement('button');
+        submitBtn.textContent = 'Submit';
+        submitBtn.onclick = () => {
+            clearInterval(quizTimer);
+            gradeQuiz(quiz, false);
+        };
+        quizDiv.appendChild(submitBtn);
+
+        quizContainer.appendChild(quizDiv);
+    }
+
+    function gradeQuiz(quiz, autoSubmitted) {
+        let score = 0;
+        const endTime = new Date();
+        const timeTaken = Math.round((endTime - quizStartTime) / 1000);
+
+        quiz.questions.forEach((question, index) => {
+            const selectedInputs = document.querySelectorAll(`input[name^="question${index}"]:checked`);
+            const selectedValues = Array.from(selectedInputs).map(input => input.value);
+            const correct = Array.isArray(question.answer) ? question.answer : [question.answer];
+
+            const questionDiv = document.querySelectorAll('.question-container')[index];
+
+            if (selectedValues.length === 0) {
+                questionDiv.style.backgroundColor = "#ffeeba"; // yellow for unanswered
+                return;
+            }
+
+            const isCorrect =
+                selectedValues.length === correct.length &&
+                selectedValues.every(val => correct.includes(val));
+
+            if (isCorrect) {
+                score++;
+                questionDiv.style.backgroundColor = "#d4edda"; // green
+            } else {
+                questionDiv.style.backgroundColor = "#f8d7da"; // red
+            }
+        });
+
+        const resultScreen = document.createElement('div');
+        resultScreen.innerHTML = `
+            <h2>Results</h2>
+            <p>Your Score: ${score} / ${quiz.questions.length}</p>
+            <p>Time Taken: ${timeTaken} seconds</p>
+            ${autoSubmitted ? '<p><strong>Time ran out!</strong></p>' : ''}
+        `;
+
+        const quizContainer = document.getElementById('quiz-container');
+        quizContainer.innerHTML = '';
+        quizContainer.appendChild(resultScreen);
+    }
+
+    window.onload = loadQuizSelector;
+    </script>
+
+</body>
+</html>

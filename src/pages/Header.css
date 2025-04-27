@@ -69,18 +69,3 @@
   color: var(--username-text-color);
   transition: var(--global-transition);
 }
-
-.logout-button {
-  all: unset;                      /* ✅ Resets all browser defaults */
-  display: inline-flex;             /* ✅ Match link layout */
-  align-items: center;              /* ✅ Vertically align text */
-  justify-content: center;
-  font-size: inherit;               /* ✅ Inherit text size */
-  padding: 0.4rem 0.9rem;           /* ✅ Match link padding */
-  background-color: var(--button-bg);
-  color: var(--button-text);
-  border: var(--button-border);
-  border-radius: 5px;
-  cursor: pointer;
-  line-height: 1.2;
-}

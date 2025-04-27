@@ -1,0 +1,56 @@
+.create-quiz {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: var(--card-bg);  /* Integrates with dark/light theme */
+    color: var(--text-color);          /* Text color for theme */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: background-color var(--transition-speed, 0.3s) ease, color var(--transition-speed, 0.3s) ease;
+  }
+  
+  .create-quiz h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  
+  .create-quiz form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .question-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    background-color: var(--button-bg);
+    padding: 1rem;
+    border-radius: 8px;
+  }
+  
+  .create-quiz input[type="text"] {
+    padding: 0.5rem;
+    border: 1px solid var(--button-border);
+    border-radius: 5px;
+    font-size: var(--button-text, 16px);  /* Respect accessibility text size */
+  }
+  
+  .button-group {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .create-quiz button {
+    background-color: var(--button-bg);
+    color: var(--text-color);
+    border: 1px solid var(--button-border);
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color var(--transition-speed, 0.3s) ease, color var(--transition-speed, 0.3s) ease;
+  }
+  
+  .create-quiz button:hover {
+    background-color: var(--button-hover-bg, #555);
+  }

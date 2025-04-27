@@ -79,7 +79,7 @@ export default function ManageQuizzes() {
                     className="edit-button"
                     onClick={() => handleEdit(quiz._id)}
                   >
-                    {quiz.title}
+                    {quiz.quizTitle}
                   </button>
                   <button
                     className="delete-button"
