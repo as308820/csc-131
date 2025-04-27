@@ -8,6 +8,9 @@ require("dotenv").config();
 const QuizManager = require("./services/quizManager");
 const quizManager = new QuizManager();
 
+// Load authentication logic
+const authRoutes = require('./routes/auth');
+
 // Initialize app
 const app = express();
 
@@ -15,6 +18,7 @@ const app = express();
 app.use(morgan("dev"));
 app.use(cors({ origin: true, credentials: true }));
 app.use(express.json());
+app.use('/api/auth', authRoutes);
 
 // MongoDB connection
 mongoose
