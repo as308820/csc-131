@@ -1,167 +1,263 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Create Quiz</title>
-  <style>
-    .question-block { 
-      border: 1px solid #ccc; 
-      padding: 10px; 
-      margin-bottom: 15px; 
-      position: relative;
-    }
-    .option-input { margin-left: 20px; }
-    .delete-btn {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background-color: #f44336;
-      color: white;
-      border: none;
-      padding: 5px 10px;
-      cursor: pointer;
-      border-radius: 4px;
-    }
-  </style>
-</head>
-<body>
-  <h1>Create a New Quiz</h1>
-
-  <form id="quizForm">
-    <label>Quiz Title: <input type="text" id="quizTitle" required></label><br><br>
-    <label>Duration (minutes): <input type="number" id="quizDuration" required></label><br><br>
-    <label for="numQuestionsToShow">Number of Questions to Show:</label>
-    <input type="number" id="numQuestionsToShow" name="numQuestionsToShow" min="1">
-    <br><br>
-
-    <div id="questionsContainer"></div>
-
-    <button type="button" onclick="addQuestion()">Add Question</button><br><br>
-    <button type="submit">Save Quiz</button>
-  </form>
-
-  <script>
-    let questionCount = 0;
-
-    function addQuestion() {
-      const container = document.getElementById('questionsContainer');
-      const qIndex = questionCount++;
-
-      const questionDiv = document.createElement('div');
-      questionDiv.className = 'question-block';
-      questionDiv.id = `question-${qIndex}`;
-
-      questionDiv.innerHTML = `
-        <button type="button" class="delete-btn" onclick="deleteQuestion('${qIndex}')">Delete</button>
-        <label>Question Text:
-          <input type="text" name="question-${qIndex}-text" required>
-        </label><br><br>
-
-        <label>Number of Answer Options:
-          <input type="number" min="2" max="6" value="4" onchange="updateOptions(${qIndex}, this.value)">
-        </label><br><br>
-
-        <div id="options-${qIndex}"></div>
-
-        <label>Correct Answer:
-          <select name="correct-${qIndex}" id="correct-${qIndex}" required></select>
-        </label>
-      `;
-
-      container.appendChild(questionDiv);
-
-      updateOptions(qIndex, 4); // Default to 4 options
-    }
-
-    function updateOptions(qIndex, count) {
-      const optionsContainer = document.getElementById(`options-${qIndex}`);
-      const correctSelect = document.getElementById(`correct-${qIndex}`);
-      optionsContainer.innerHTML = '';
-      correctSelect.innerHTML = '';
-
-      for (let i = 0; i < count; i++) {
-        const input = document.createElement('input');
-        input.type = 'text';
-        input.className = 'option-input';
-        input.name = `question-${qIndex}-option-${i}`;
-        input.placeholder = `Option ${i + 1}`;
-        input.required = true;
-
-        const label = document.createElement('label');
-        label.appendChild(document.createTextNode(`Option ${i + 1}: `));
-        label.appendChild(input);
-
-        optionsContainer.appendChild(label);
-        optionsContainer.appendChild(document.createElement('br'));
-
-        const option = document.createElement('option');
-        option.value = i;
-        option.text = `Option ${i + 1}`;
-        correctSelect.appendChild(option);
+  <head>
+    <meta charset="UTF-8">
+    <title>Quiz Creator</title>
+    <style>
+      body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f9f9f9;
+        margin: 0;
+        padding: 0;
+        color: #333;
       }
-    }
 
-    function deleteQuestion(qIndex) {
-      const questionDiv = document.getElementById(`question-${qIndex}`);
-      if (questionDiv) {
-        questionDiv.remove();
+      h1 {
+        text-align: center;
+        color: #2d88ff;
+        margin-top: 20px;
+        font-size: 2.5em;
       }
-    }
 
-    document.getElementById("quizForm").addEventListener("submit", async function (e) {
-      e.preventDefault();
+      form {
+        max-width: 900px;
+        margin: 20px auto;
+        background: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
 
-      const quiz = {
-        title: document.getElementById("quizTitle").value,
-        duration: parseInt(document.getElementById("quizDuration").value),
-        numQuestionsToShow: parseInt(document.getElementById("numQuestionsToShow").value),
-        questions: [],
-      };
+      label {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 5px;
+      }
 
-      const container = document.getElementById('questionsContainer');
-      const questionDivs = container.getElementsByClassName('question-block');
+      input[type="text"],
+      input[type="number"],
+      select {
+        width: 97%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 2px solid #cccccc98;
+        border-radius: 5px;
+        font-size: 1em;
+      }
 
-      for (let div of questionDivs) {
-        const qId = div.id.split('-')[1];
-        const questionText = div.querySelector(`[name=question-${qId}-text]`);
+      .question-block {
+        border: 1px solid #e0e0e0;
+        background-color: #fdfdfd;
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
 
-        if (!questionText) continue; // skip if missing
+      .option-input {
+        margin-left: 0;
+        width: calc(100% - 20px);
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
 
-        const question = {
-          question: questionText.value,
-          options: [],
-          answer: "",
-        };
+      button {
+        background-color: #2d88ff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 1em;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
 
-        let optionIndex = 0;
-        while (true) {
-          const opt = div.querySelector(`[name=question-${qId}-option-${optionIndex}]`);
-          if (!opt) break;
-          question.options.push(opt.value);
-          optionIndex++;
+      button:hover {
+        background-color: #1c6ed2;
+      }
+
+      button:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+      }
+
+      #questionsContainer {
+        margin-top: 20px;
+      }
+
+      .button-container {
+        display: flex;
+        justify-content: flex-start;
+        gap: 10px;
+        margin-top: 20px;
+      }
+
+      .delete-btn {
+        background-color: red;
+        color: white;
+      }
+
+      /* Add responsiveness */
+      @media (max-width: 768px) {
+        form {
+          padding: 15px;
         }
 
-        const correctSelect = div.querySelector(`#correct-${qId}`);
-        const correctIndex = parseInt(correctSelect.value);
-        question.answer = question.options[correctIndex];
+        h1 {
+          font-size: 2em;
+        }
 
-        quiz.questions.push(question);
+        .button-container {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Quiz Creator</h1>
+
+    <form id="quizForm">
+      <label>Quiz Title: <input type="text" id="quizTitle" required></label><br><br>
+      <label>Test duration (minutes): <input type="number" id="quizDuration" required></label><br><br>
+      <label for="numQuestionsToShow">Number of Questions to Show:</label>
+      <input type="number" id="numQuestionsToShow" name="numQuestionsToShow" min="1">
+      <br>
+
+      <div id="questionsContainer"></div>
+
+      <div class="button-container">
+        <button type="button" onclick="addQuestion()">Add Question</button>
+        <button type="button" class="delete-btn" onclick="deleteLastQuestion()">Delete Last Question</button>
+      </div>
+      <br><br>
+      <button type="submit">Save Quiz</button>
+    </form>
+
+    <script>
+      let questionCount = 0;
+
+      function addQuestion() {
+        const container = document.getElementById('questionsContainer');
+        const qIndex = questionCount++;
+
+        const questionDiv = document.createElement('div');
+        questionDiv.className = 'question-block';
+        questionDiv.id = `question-${qIndex}`;
+
+        questionDiv.innerHTML = `
+          <label>Question Text:
+            <input type="text" name="question-${qIndex}-text" required>
+          </label><br><br>
+
+          <label>Number of Answer Options:
+            <input type="number" min="2" max="6" value="4" onchange="updateOptions(${qIndex}, this.value)">
+          </label><br><br>
+
+          <div id="options-${qIndex}"></div>
+
+          <label>Correct Answer:
+            <select name="correct-${qIndex}" id="correct-${qIndex}" required></select>
+          </label>
+        `;
+
+        container.appendChild(questionDiv);
+
+        updateOptions(qIndex, 4); // Default to 4 options
       }
 
-      // POST to server
-      const res = await fetch("http://localhost:3000/api/quizzes", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(quiz),
+      function updateOptions(qIndex, count) {
+        const optionsContainer = document.getElementById(`options-${qIndex}`);
+        const correctSelect = document.getElementById(`correct-${qIndex}`);
+        optionsContainer.innerHTML = '';
+        correctSelect.innerHTML = '';
+
+        for (let i = 0; i < count; i++) {
+          const input = document.createElement('input');
+          input.type = 'text';
+          input.className = 'option-input';
+          input.name = `question-${qIndex}-option-${i}`;
+          input.placeholder = `Option ${i + 1}`;
+          input.required = true;
+
+          const label = document.createElement('label');
+          label.appendChild(document.createTextNode(`Option ${i + 1}: `));
+          label.appendChild(input);
+
+          optionsContainer.appendChild(label);
+          optionsContainer.appendChild(document.createElement('br'));
+
+          const option = document.createElement('option');
+          option.value = i;
+          option.text = `Option ${i + 1}`;
+          correctSelect.appendChild(option);
+        }
+      }
+
+      function deleteLastQuestion() {
+        const container = document.getElementById('questionsContainer');
+        const lastQuestion = container.lastElementChild;
+        if (lastQuestion) {
+          container.removeChild(lastQuestion);
+        }
+      }
+
+      document.getElementById("quizForm").addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        const quiz = {
+          title: document.getElementById("quizTitle").value,
+          duration: parseInt(document.getElementById("quizDuration").value),
+          numQuestionsToShow: parseInt(document.getElementById("numQuestionsToShow").value),
+          questions: [],
+        };
+
+        const container = document.getElementById('questionsContainer');
+        const questionDivs = container.getElementsByClassName('question-block');
+
+        for (let div of questionDivs) {
+          const qId = div.id.split('-')[1];
+          const questionText = div.querySelector(`[name=question-${qId}-text]`);
+
+          if (!questionText) continue; // skip if missing
+
+          const question = {
+            question: questionText.value,
+            options: [],
+            answer: "",
+          };
+
+          let optionIndex = 0;
+          while (true) {
+            const opt = div.querySelector(`[name=question-${qId}-option-${optionIndex}]`);
+            if (!opt) break;
+            question.options.push(opt.value);
+            optionIndex++;
+          }
+
+          const correctSelect = div.querySelector(`#correct-${qId}`);
+          const correctIndex = parseInt(correctSelect.value);
+          question.answer = question.options[correctIndex];
+
+          quiz.questions.push(question);
+        }
+
+        // POST to server
+        const res = await fetch("http://localhost:3000/api/quizzes", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(quiz),
+        });
+
+        if (res.ok) {
+          alert("Quiz saved successfully!");
+          window.location.reload();
+        } else {
+          alert("Failed to save quiz.");
+        }
       });
-
-      if (res.ok) {
-        alert("Quiz saved successfully!");
-        window.location.reload();
-      } else {
-        alert("Failed to save quiz.");
-      }
-    });
-  </script>
-</body>
+    </script>
+  </body>
 </html>
