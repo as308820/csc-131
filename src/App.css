@@ -24,6 +24,9 @@
     --button-bg: #c1efff7f;
     --button-hover-bg: #00d8ff;
     --button-text: black;
+
+    /* house keeping */
+    --username-text-color: #333;
 }
 
 .dark {
@@ -52,6 +55,9 @@
     --button-bg: #transparent;
     --button-hover-bg: #00d8ff;
     --button-text: #fff;
+
+    /* house keeping */
+    --username-text-color: #eee;
 }
 
 body,
@@ -66,4 +72,6 @@ body,
 
 .main-content {
     flex: 1;
+    background-color: var(--bg-color);
+    transition: var(--global-transition);
 }
