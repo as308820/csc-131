@@ -7,8 +7,8 @@
     --header-bg-color: #26a8ff;
     
     /*footer settings*/
-    --footer-bg: #f0f0f0;
-    --footer-text: #333;
+    --footer-bg: var(--header-bg-color);
+    --footer-text:  var(--text-color);
     
     /* accessibility window */
     --modal-bg: #f8f9fa;
@@ -35,8 +35,8 @@
     --header-bg-color: #282c34;
     
     /*footer settings*/
-    --footer-bg: #222;
-    --footer-text: #eee;
+    --footer-bg: var(--header-bg-color);
+    --footer-text: var(--text-color);
     
     /* accessibility window */
     --modal-bg: #2b2b2b;

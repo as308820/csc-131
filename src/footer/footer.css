@@ -37,6 +37,10 @@ html, body {
     transition: var(--global-transition);
 }
 
+.footer * {
+    color: var(--footer-text);
+}
+
 /* Update the sb__footer class to maintain content width */
 .sb__footer {
     max-width: 1200px;
@@ -90,6 +94,7 @@ a{
     font-size: 14px;
     line-height: 17px;
     margin-bottom: 0.9rem;
+    transition:var(--global-transition);
 }
 
 .sb__footer-links_div p{
@@ -117,7 +122,8 @@ a{
     font-size: 13px;
     line-height: 15px;
     margin-left: 2rem;
-    color: white;
+    color: var(--footer-text);
+    transition: var(--global-transition);
     font-weight: 600;
 
 }
@@ -131,7 +137,8 @@ hr{
 .sb__footer-copyright p{
     font-size: 13px;
     line-height: 15px;
-    color: white; /* Corrected to use the valid 'white' keyword */
+    color: var(--footer-text);
+    transition: var(--global-transition);
     font-weight: 600;
 
 }
