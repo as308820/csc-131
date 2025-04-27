@@ -48,7 +48,14 @@
 
 body,
 .app-container {
-    background-color: var(--bg-color);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--background-color);
     color: var(--text-color);
-    transition: var(--global-transition);
+    transition: background-color var(--transition), color var(--transition);
+}
+
+.main-content {
+    flex: 1;
 }

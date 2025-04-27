@@ -29,6 +29,7 @@ function LayoutContent() {
       <Header />
 
       {/* Define Routes */}
+      <div clasName='main-content'>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
@@ -43,7 +44,7 @@ function LayoutContent() {
 
       {/* Accessibility Button */}
       <AccessibilityButton />
-
+      </div>
       {/* Footer Component */}
       <Footer />
     </div>
