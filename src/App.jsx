@@ -29,7 +29,7 @@ function LayoutContent() {
       <Header />
 
       {/* Define Routes */}
-      <div clasName='main-content'>
+      <div className='main-content'>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />

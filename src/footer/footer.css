@@ -28,14 +28,13 @@ html, body {
 
 /* Update the footer class */
 .footer {
-    width: 100vw; /* Change to viewport width */
-    background-color: rgb(84, 80, 80);
+    width: 100%;
+    background-color: var(--footer-bg);
+    color: var(--footer-text);
     padding: 20px 0;
-    position: relative;
-    margin-top: auto;
-    margin-left: calc(-50vw + 50%); /* Compensate for any parent padding */
-    margin-right: calc(-50vw + 50%);
+    text-align: center;
     box-sizing: border-box;
+    transition: var(--global-transition);
 }
 
 /* Update the sb__footer class to maintain content width */

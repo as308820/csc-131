@@ -6,6 +6,10 @@
     --global-btn-transition: background-color 0.3s ease, color 0.3s ease;
     --header-bg-color: #26a8ff;
     
+    /*footer settings*/
+    --footer-bg: #f0f0f0;
+    --footer-text: #333;
+    
     /* accessibility window */
     --modal-bg: #f8f9fa;
     --modal-text: #111;
@@ -29,6 +33,10 @@
     --global-transition: background-color 1.5s ease, color 0.3s ease;
     --global-btn-transition: 0.3s ease;
     --header-bg-color: #282c34;
+    
+    /*footer settings*/
+    --footer-bg: #222;
+    --footer-text: #eee;
     
     /* accessibility window */
     --modal-bg: #2b2b2b;
