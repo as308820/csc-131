@@ -5,7 +5,7 @@ import About from "./pages/About";
 import Contacts from "./pages/Contacts";
 import Credits from "./pages/Credits";
 import Footer from "./footer/footer"; // Import Footer component
-import LogIn from './pages/LogIn';
+import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import Header from './pages/Header'; // Import Header component
 
@@ -33,7 +33,7 @@ function LayoutContent() {
         <Route path="/about" element={<About />} />
         <Route path="/contacts" element={<Contacts />} />
         <Route path="/credits" element={<Credits />} />
-        <Route path="/LogIn" element={<LogIn />} />
+        <Route path="/Login" element={<Login />} />
         <Route path="/SignUp" element={<SignUp />} />
 
         {/* Test route for quiz manager*/}

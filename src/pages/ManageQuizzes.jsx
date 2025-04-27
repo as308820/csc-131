@@ -1,9 +1,13 @@
 import "./ManageQuizzes.css";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
+import { useAccessibility } from "../accessibility/AccessibilityContext";
 
 export default function ManageQuizzes() {
   const [quizzes, setQuizzes] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+  const { textSize } = useAccessibility();
 
   // Fetch quizzes on page load
   useEffect(() => {
@@ -41,7 +45,16 @@ export default function ManageQuizzes() {
 
   return (
     <div className="manage-quizzes">
-      <h2>Manage Quizzes</h2>
+      <h2
+        style={{
+          fontSize: `${textSize + 10}px`,
+          textAlign: "center",
+          marginTop: "1.5rem",
+          marginBottom: "2rem"
+        }}
+      >
+        Manage Quizzes
+      </h2>
       {loading ? (  
         <p>Loading quizzes...</p>
       ) : quizzes.length === 0 ? (
@@ -66,6 +79,12 @@ export default function ManageQuizzes() {
                 </div>
               </div>
             ))}
+            <button
+              className="create-quiz-button"
+              onClick={() => navigate("/create-quiz")}
+            >
+              + Create New Quiz
+            </button>
         </div>
       )}
     </div>
