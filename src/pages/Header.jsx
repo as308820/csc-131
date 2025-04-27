@@ -1,9 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom'; //For navigation
 import "./Header.css";
-
+import { useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
 
  const Header = ()=> {
+    const { user, logout } = useContext(AuthContext);
+
      return (
          <header className="header">
             <Link to="/" className="logo-link">
@@ -19,10 +22,17 @@ import "./Header.css";
                 <Link to="/manage-quizzes" className="about-button">[Dev Only] Manage Quizzes</Link>
             </nav>
 
-            <nav className="log-links">
-                <Link to="/LogIn" className="login-button">LogIn</Link>
-                <Link to="/SignUp" className="register-button">SignUp</Link>   
-            </nav>
+            {user ? (
+                <>
+                <span>Welcome, {user.name}</span>
+                <button onClick={logout}>Logout</button>
+                </>
+            ) : (
+                <nav className="log-links">
+                    <Link to="/LogIn" className="login-button">LogIn</Link>
+                    <Link to="/SignUp" className="register-button">SignUp</Link>   
+                </nav>
+            )}
             {/*TODO: Add styling to the header and navigation links later */}
         </header>
      );

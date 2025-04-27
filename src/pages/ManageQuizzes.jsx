@@ -2,8 +2,11 @@ import "./ManageQuizzes.css";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { useAccessibility } from "../accessibility/AccessibilityContext";
+import { useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
 
 export default function ManageQuizzes() {
+  const { user } = useContext(AuthContext);
   const [quizzes, setQuizzes] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -42,6 +45,14 @@ export default function ManageQuizzes() {
       console.error("Error deleting quiz:", err);
     }
   };
+
+  if (!user) {
+    return <p>You must be logged in to view this page.</p>;
+  }
+
+  if (!user.isAdmin) {
+    return <p>Access denied. Admins only.</p>;
+  }
 
   return (
     <div className="manage-quizzes">
