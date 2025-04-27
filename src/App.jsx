@@ -8,6 +8,7 @@ import Footer from "./footer/footer"; // Import Footer component
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import Header from './pages/Header'; // Import Header component
+import { AuthProvider } from './context/AuthContext';
 
 // Accessibility imports
 import { AccessibilityProvider, useAccessibility } from './accessibility/AccessibilityContext';
@@ -52,10 +53,12 @@ function LayoutContent() {
 // Top-level App wrapper
 export default function App() {
   return (
-    <AccessibilityProvider>
-      <Router>
-        <LayoutContent />
-      </Router>
-    </AccessibilityProvider>
+    <AuthProvider>
+      <AccessibilityProvider>
+        <Router>
+          <LayoutContent />
+        </Router>
+      </AccessibilityProvider>
+    </AuthProvider>
   );
 }

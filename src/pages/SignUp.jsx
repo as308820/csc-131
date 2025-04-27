@@ -1,148 +1,123 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import "./SignUp.css";
+import { useNavigate, Link } from 'react-router-dom';
+import { TextField, Button, Paper, Typography, Box } from "@mui/material";
+import axios from "axios";
 
-function SignUp() {
+axios.defaults.baseURL = process.env.REACT_APP_API_URL || "http://localhost:8080";
+
+export default function SignUp() {
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    username: "",
-    password: "",
-    confirmPassword: "",
-    adminCode: "", // New field for admin code
+    name: '',
+    email: '',
+    password: '',
+    adminCode: ''  
   });
+  const navigate = useNavigate();
 
-  const [passwordsMatch, setPasswordsMatch] = useState(false);
-
-  // Handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
-
-    // Update form data
-    setFormData({ ...formData, [name]: value });
-
-    // Check if passwords match
-    if (name === "password" || name === "confirmPassword") {
-      setPasswordsMatch(
-        name === "password"
-          ? value === formData.confirmPassword
-          : value === formData.password
-      );
-    }
+    setFormData(prevState => ({ ...prevState, [name]: value }));
   };
 
-  // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
-    if (!passwordsMatch) {
-      alert("Passwords do not match!");
+    console.log("Submitting signup:", formData);
+
+    if (!formData.name || !formData.email || !formData.password) {
+      alert("All fields are required.");
       return;
     }
-    alert("Sign-up successful!");
-    console.log("Form Data:", formData);
+
+    try {
+      const response = await axios.post('/api/auth/signup', formData);
+
+      if (response.status === 201) {
+        console.log("User created successfully");
+        navigate("/login"); 
+      } else {
+        console.warn("Unexpected status code:", response.status);
+        alert(`Signup failed with status: ${response.status}`);
+      }
+    } catch (error) {
+      console.error("Signup error:", error);
+      if (error.response) {
+        console.error("Server responded with:", error.response.status, error.response.data);
+        alert(`Signup failed: ${error.response.data.message || error.message}`);
+      } else if (error.request) {
+        console.error("No response received:", error.request);
+        alert("No response from server. Please check your network.");
+      } else {
+        console.error("Axios error:", error.message);
+        alert(`Signup failed: ${error.message}`);
+      }
+    }
   };
 
   return (
-    <div className="signup-container">
-      <div className="signup-box">
-        <h2>Sign Up</h2>
-        <form onSubmit={handleSubmit}>
-          {/* First Name Input */}
-          <div className="input-container">
-            <span className="char-counter">
-              {formData.firstName.length}/20
-            </span>
-            <input
-              type="text"
-              name="firstName"
-              placeholder="First Name (Max 20 characters)"
-              className="signup-input"
-              maxLength="20"
-              value={formData.firstName}
-              onChange={handleChange}
-            />
-          </div>
-          {/* Last Name Input */}
-          <div className="input-container">
-            <span className="char-counter">
-              {formData.lastName.length}/20
-            </span>
-            <input
-              type="text"
-              name="lastName"
-              placeholder="Last Name (Max 20 characters)"
-              className="signup-input"
-              maxLength="20"
-              value={formData.lastName}
-              onChange={handleChange}
-            />
-          </div>
-          {/* Username Input */}
-          <div className="input-container">
-            <span className="char-counter">
-              {formData.username.length}/20
-            </span>
-            <input
-              type="text"
-              name="username"
-              placeholder="Username (Max 20 characters)"
-              className="signup-input"
-              maxLength="20"
-              value={formData.username}
-              onChange={handleChange}
-            />
-          </div>
-          {/* Password Input */}
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            className="signup-input"
-            value={formData.password}
-            onChange={handleChange}
-          />
-          {/* Confirm Password Input */}
-          <input
-            type="password"
-            name="confirmPassword"
-            placeholder="Re-enter Password"
-            className="signup-input"
-            value={formData.confirmPassword}
-            onChange={handleChange}
-          />
-          {/* Password Match Indicator */}
-          {formData.password && formData.confirmPassword && (
-            <p
-              style={{
-                color: passwordsMatch ? "green" : "red",
-                fontSize: "14px",
-                marginTop: "5px",
-              }}
-            >
-              {passwordsMatch ? "✔ Passwords match" : "✘ Passwords do not match"}
-            </p>
-          )}
-          {/* Admin Code Input */}
-          <input
-            type="text"
-            name="adminCode"
-            placeholder="Code to register as Admin"
-            className="signup-input"
-            value={formData.adminCode}
-            onChange={handleChange}
-          />
-          {/* Submit Button */}
-          <button type="submit" className="signup-button">
-            Sign Up
-          </button>
-        </form>
-        {/* Log In Link */}
-        <p className="login-text">
+    <Paper elevation={3} sx={{ p: 4, maxWidth: 400, margin: '40px auto' }}>
+      <Typography variant="h5" sx={{ mb: 3, textAlign: 'center' }}>
+        Sign Up
+      </Typography>
+
+      <Box component="form" onSubmit={handleSignUp} noValidate>
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          id="name"
+          label="Name"
+          name="name"
+          autoComplete="name"
+          value={formData.name}
+          onChange={handleChange}
+        />
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          id="email"
+          label="Email Address"
+          name="email"
+          autoComplete="email"
+          type="email"
+          value={formData.email}
+          onChange={handleChange}
+        />
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          name="password"
+          label="Password"
+          type="password"
+          id="password"
+          autoComplete="new-password"
+          value={formData.password}
+          onChange={handleChange}
+        />
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          id="adminCode"
+          label="Admin Code"
+          name="adminCode"
+          autoComplete="off"
+          value={formData.adminCode}
+          onChange={(e) => setFormData({ ...formData, adminCode: e.target.value })}
+        />
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          sx={{ mt: 3, mb: 2 }}
+        >
+          Sign Up
+        </Button>
+        <Typography variant="body2" align="center">
           Already have an account? <Link to="/login">Log In</Link>
-        </p>
-      </div>
-    </div>
+        </Typography>
+      </Box>
+    </Paper>
   );
 }
-
-export default SignUp;
