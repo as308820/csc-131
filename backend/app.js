@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const morgan = require("morgan");
 const cors = require("cors");
-require("dotenv").config();
+require('dotenv').config({ path: './backend/.env' });
 
 // Load QuizManager class
 const QuizManager = require("./services/quizManager");

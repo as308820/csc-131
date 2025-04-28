@@ -3,19 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Page</title>
+    <title>AlphaAnswer</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 20px;
         }
+    
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+    
+        #quiz-selector {
+            display: block;
+            margin: 20px auto;
+            padding: 10px;
+            font-size: 16px;
+        }
+    
+        #quiz-container {
+            max-width: 700px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+    
+        .quiz {
+            margin-top: 20px;
+        }
+    
         .question-container {
+            margin-bottom: 30px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background: #fafafa;
+        }
+    
+        label {
+            display: block;
+            margin: 8px 0;
+            font-size: 15px;
+            cursor: pointer;
+        }
+    
+        input[type="radio"],
+        input[type="checkbox"] {
+            margin-right: 8px;
+        }
+    
+        button {
+            display: block;
+            margin: 20px auto;
+            padding: 12px 24px;
+            background-color: #007BFF;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+    
+        button:hover {
+            background-color: #0056b3;
+        }
+    
+        #timer {
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            color: #333;
             margin-bottom: 20px;
         }
+    
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+    
+        p {
+            text-align: center;
+        }
     </style>
+    
 </head>
 <body>
 
-    <h1>Quiz Page</h1>
+    <h1>AlphaAnswer Quizzes</h1>
 
     <div id="quiz-container">
         <!-- Quiz questions will be injected here -->
