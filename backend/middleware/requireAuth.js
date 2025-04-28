@@ -13,7 +13,7 @@ async function requireAuth(req, res, next) {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         console.log("Decoded token:", decoded);  // 👈 Log decoded JWT
 
-        const user = await User.findById(decoded.userId).select('_id email');
+        const user = await User.findById(decoded.userId).select('_id email isAdmin');
         if (!user) {
             console.log("User not found in DB.");
             return res.status(401).json({ message: 'User not found' });

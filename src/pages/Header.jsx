@@ -24,25 +24,12 @@ import { AuthContext } from '../context/AuthContext';
                     Credits
                 </Link>
 
-                {/*admin link to quiz manager */}
                 {user?.isAdmin && (
-                    <Link to="/manage-quizzes" className="about-button">
-                        Manage Quizzes
-                    </Link>
-                )}
-
-                {/*admin link to quiz results*/}
-                {user?.isAdmin && (
-                    <Link to="/admin-results" className="about-button">
-                        Admin Results
-                    </Link>
-                )}
-
-                {/*yser link to quiz list */}
-                {user && !user.isAdmin && (
-                    <Link to="/quiz-list" className='quiz-list-button'>
-                        Quizzes
-                    </Link>
+                    <>
+                        <Link to="/manage-quizzes" className="about-button">Manage Quizzes</Link>
+                        <Link to="/admin-results" className="about-button">Admin Results</Link>
+                        <Link to="/user-list" className="about-button">User List</Link>
+                    </>
                 )}
 
             </nav>
@@ -58,7 +45,6 @@ import { AuthContext } from '../context/AuthContext';
                     <Link to="/SignUp" className="register-button">SignUp</Link>   
                 </nav>
             )}
-            {/*TODO: Add styling to the header and navigation links later */}
         </header>
      );
  };

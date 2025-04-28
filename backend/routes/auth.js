@@ -2,14 +2,13 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const UserModel = require('../models/User');
 const jwt = require('jsonwebtoken');
-
+const requireAuth = require('../middleware/requireAuth');
 
 const router = express.Router();
 
 router.post('/signup', async (req, res) => {
     console.log("Signup route hit!"); 
     try {
-
         const { name, email, password, adminCode } = req.body; 
 
         if (!name || !email || !password) {
@@ -60,8 +59,28 @@ router.post("/login", async (req, res) => {
             res.status(401).json({ message: "Invalid credentials" });
         }
     } catch (error) {
-        console.error('Login error:', error);  // Add this line!
+        console.error('Login error:', error);
         res.status(500).json({ error: error.message });
+    }
+});
+
+// GET /api/auth/users (Admin-only user list)
+router.get('/users', requireAuth, async (req, res) => {
+    console.log("User making request:", req.user);
+    
+    if (!req.user.isAdmin) {
+        return res.status(403).json({ error: 'Access denied' });
+    }
+
+    try {
+        const users = await UserModel.find({}, 'name email isAdmin');
+        const admins = users.filter(user => user.isAdmin);
+        const normalUsers = users.filter(user => !user.isAdmin);
+
+        res.json({ admins, users: normalUsers });
+    } catch (error) {
+        console.error('Error fetching users:', error);
+        res.status(500).json({ error: 'Server error' });
     }
 });
 
