@@ -9,6 +9,7 @@ const requireAuth = require('../middleware/requireAuth');
 router.get('/:quizId', requireAuth, async (req, res) => {
   const { quizId } = req.params;
   const userId = req.user.id;
+  const User = require('../models/User'); 
 
   console.log("req.user:", req.user); 
   console.log("quizId:", quizId);      
@@ -101,7 +102,7 @@ router.get('/quiz/:quizId', requireAuth, async (req, res) => {
   const { quizId } = req.params;
 
   try {
-    const attempts = await QuizAttempt.find({ quizId, submitted: true }).populate('userId', 'name email');
+    const attempts = await QuizAttempt.find({ quizId, submitted: true }).populate({ path: 'userId', model: 'users', select: 'name email' })
     const quiz = await quizManager.getQuizById(quizId);
 
     const results = attempts.map(attempt => {

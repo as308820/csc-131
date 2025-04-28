@@ -24,15 +24,27 @@ import { AuthContext } from '../context/AuthContext';
                     Credits
                 </Link>
 
-                {/*Test link to quiz manager */}
-                <Link to="/manage-quizzes" className="about-button">
-                    [Dev Only] Manage Quizzes
-                </Link>
+                {/*admin link to quiz manager */}
+                {user?.isAdmin && (
+                    <Link to="/manage-quizzes" className="about-button">
+                        Manage Quizzes
+                    </Link>
+                )}
 
-                {/*Test link to quiz take */}
-                <Link to="/quiz-list" className='quiz-list-button'>
-                    Quizzes
-                </Link>
+                {/*admin link to quiz results*/}
+                {user?.isAdmin && (
+                    <Link to="/admin-results" className="about-button">
+                        Admin Results
+                    </Link>
+                )}
+
+                {/*yser link to quiz list */}
+                {user && !user.isAdmin && (
+                    <Link to="/quiz-list" className='quiz-list-button'>
+                        Quizzes
+                    </Link>
+                )}
+
             </nav>
 
             {user ? (

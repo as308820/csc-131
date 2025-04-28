@@ -11,6 +11,8 @@ import Header from './pages/Header';
 import { AuthProvider } from './context/AuthContext';
 import EditQuiz from './pages/EditQuiz';
 import ReviewQuiz from './pages/ReviewQuiz'; 
+import AdminResults from './pages/AdminResults';
+
 
 // Accessibility imports
 import { AccessibilityProvider, useAccessibility } from './accessibility/AccessibilityContext';
@@ -49,6 +51,7 @@ function LayoutContent() {
         <Route path="/manage-quizzes" element={<ManageQuizzes />} />
         <Route path="/create-quiz" element={<CreateQuiz />} />
         <Route path="/edit-quiz/:quizId" element={<EditQuiz />} />
+        <Route path="/admin-results" element={<AdminResults />} />
 
         {/*rout for taking quiz (user context)*/}
         <Route path="/quiz-list" element={<QuizList />} />
