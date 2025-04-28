@@ -17,7 +17,6 @@ import UserList from './pages/UserList';
 
 // Accessibility imports
 import { AccessibilityProvider, useAccessibility } from './accessibility/AccessibilityContext';
-import AccessibilityButton from "./accessibility/AccessibilityButton";
 
 //quiz manager imports
 import ManageQuizzes from './pages/ManageQuizzes';
@@ -62,8 +61,6 @@ function LayoutContent() {
         <Route path="/review-quiz/:quizId" element={<ReviewQuiz />} />
       </Routes>
 
-      {/* Accessibility Button */}
-      <AccessibilityButton />
       </div>
       {/* Footer Component */}
       <Footer />

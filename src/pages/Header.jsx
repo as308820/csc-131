@@ -16,6 +16,11 @@ const Header = () => {
         <Link to="/about">About</Link>
         <Link to="/contacts">Contacts</Link>
         <Link to="/credits">Credits</Link>
+        {user && !user.isAdmin && (
+            <Link to="/quiz-list" className="about-button">
+                Quizzes
+            </Link>
+        )}
         {user?.isAdmin && (
           <>
             <Link to="/manage-quizzes">Manage Quizzes</Link>
