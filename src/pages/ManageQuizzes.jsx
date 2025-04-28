@@ -72,32 +72,25 @@ export default function ManageQuizzes() {
         <p>No quizzes available.</p>
       ) : (
         <div className="quiz-list">
-            {quizzes.map((quiz) => (
-              <div className="quiz-card" key={quiz._id}>
-                <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
-                  <button
-                    className="edit-button"
-                    onClick={() => handleEdit(quiz._id)}
-                  >
-                    {quiz.quizTitle}
-                  </button>
-                  <button
-                    className="delete-button"
-                    onClick={() => handleDelete(quiz._id)}
-                  >
-                    Delete
-                  </button>
-                </div>
+          {quizzes.map((quiz) => (
+            <div className="quiz-card" key={quiz._id}>
+              <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
+                <button className="edit-button" onClick={() => handleEdit(quiz._id)}>
+                  {quiz.quizTitle}
+                </button>
+                <button className="delete-button" onClick={() => handleDelete(quiz._id)}>
+                  Delete
+                </button>
               </div>
-            ))}
-            <button
-              className="create-quiz-button"
-              onClick={() => navigate("/create-quiz")}
-            >
-              + Create New Quiz
-            </button>
+            </div>
+          ))}
         </div>
       )}
+
+      {/* Always show Create Quiz button here */}
+      <button className="create-quiz-button" onClick={() => navigate("/create-quiz")}>
+        + Create New Quiz
+      </button>
     </div>
   );
 }
