@@ -55,42 +55,55 @@ export default function ManageQuizzes() {
   }
 
   return (
-    <div className="manage-quizzes">
-      <h2
-        style={{
-          fontSize: `${textSize + 10}px`,
-          textAlign: "center",
-          marginTop: "1.5rem",
-          marginBottom: "2rem"
-        }}
-      >
-        Manage Quizzes
-      </h2>
-      {loading ? (  
-        <p>Loading quizzes...</p>
-      ) : quizzes.length === 0 ? (
-        <p>No quizzes available.</p>
-      ) : (
-        <div className="quiz-list">
-          {quizzes.map((quiz) => (
-            <div className="quiz-card" key={quiz._id}>
-              <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
-                <button className="edit-button" onClick={() => handleEdit(quiz._id)}>
-                  {quiz.quizTitle}
-                </button>
-                <button className="delete-button" onClick={() => handleDelete(quiz._id)}>
-                  Delete
-                </button>
+    <div className="manage-quizzes-container">
+      <div className="manage-quizzes">
+        <h2
+          style={{
+            fontSize: `${textSize + 10}px`,
+            textAlign: "center",
+            marginTop: "1.5rem",
+            marginBottom: "2rem"
+          }}
+        >
+          Manage Quizzes
+        </h2>
+        {loading ? (  
+          <p>Loading quizzes...</p>
+        ) : quizzes.length === 0 ? (
+          <p>No quizzes available.</p>
+        ) : (
+          <div className="quiz-list">
+            {quizzes.map((quiz) => (
+              <div className="quiz-card" key={quiz._id}>
+                <div style={{ display: "flex", justifyContent: 'space-between', alignItems: "center", width: "100%" }}>
+                  <button
+                    className="edit-button"
+                    style={{ fontSize: `${textSize}px` }}
+                    onClick={() => handleEdit(quiz._id)}
+                  >
+                    {quiz.quizTitle}
+                  </button>
+                  <button
+                    className="delete-button"
+                    style={{ fontSize: `${textSize}px` }}
+                    onClick={() => handleDelete(quiz._id)}
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
-      )}
+            ))}
+          </div>
+        )}
 
-      {/* Always show Create Quiz button here */}
-      <button className="create-quiz-button" onClick={() => navigate("/create-quiz")}>
-        + Create New Quiz
-      </button>
+        <button
+          className="create-quiz-button"
+          style={{ fontSize: `${textSize}px` }}
+          onClick={() => navigate("/create-quiz")}
+        >
+          Create New Quiz
+        </button>
+      </div>
     </div>
   );
 }
