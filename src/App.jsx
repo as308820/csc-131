@@ -10,6 +10,7 @@ import SignUp from './pages/SignUp';
 import Header from './pages/Header';
 import { AuthProvider } from './context/AuthContext';
 import EditQuiz from './pages/EditQuiz';
+import ReviewQuiz from './pages/ReviewQuiz'; 
 
 // Accessibility imports
 import { AccessibilityProvider, useAccessibility } from './accessibility/AccessibilityContext';
@@ -52,6 +53,8 @@ function LayoutContent() {
         {/*rout for taking quiz (user context)*/}
         <Route path="/quiz-list" element={<QuizList />} />
         <Route path="/take-quiz/:quizId" element={<TakeQuiz />} />
+
+        <Route path="/review-quiz/:quizId" element={<ReviewQuiz />} />
       </Routes>
 
       {/* Accessibility Button */}

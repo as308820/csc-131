@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from '../axios'; 
+import { useNavigate } from 'react-router-dom';
 
 const TakeQuiz = () => {
   const { quizId } = useParams();
@@ -10,6 +11,8 @@ const TakeQuiz = () => {
   const [timeLeft, setTimeLeft] = useState(0);
   const [loading, setLoading] = useState(true);
   const [submitted, setSubmitted] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchQuiz = async () => {
@@ -91,6 +94,7 @@ const TakeQuiz = () => {
       const response = await axios.post(`/api/attempts/${quizData._id}/submit`, {
         answers,
       }, { withCredentials: true });
+      navigate(`/review-quiz/${quizData._id}`);
   
       console.log('Quiz submitted successfully:', response.data);
       // Optionally show a success message or redirect

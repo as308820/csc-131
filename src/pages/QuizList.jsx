@@ -46,7 +46,9 @@ const QuizList = () => {
             <h3>{quiz.quizTitle}</h3>
             <p>Duration: {quiz.duration} minutes</p>
             {quiz.submitted ? (
-              <button disabled>Quiz Submitted</button>
+              <button onClick={() => navigate(`/review-quiz/${quiz._id}`)}>
+                Quiz Submitted (View Results)
+              </button>
             ) : (
               <button onClick={() => navigate(`/take-quiz/${quiz._id}`)}>Start Quiz</button>
             )}
