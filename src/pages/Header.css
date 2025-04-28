@@ -6,13 +6,24 @@
   background-color: var(--header-bg-color);
 }
 
+.left-group {
+  display: flex;
+  align-items: center;
+}
+
 .logo {
   height: 50px;
   border: var(--button-border);
   border-radius: 50%;
 }
 
-.nav-links, .auth-buttons {
+.nav-links {
+  display: flex;
+  gap: 1rem;
+  margin-left: 2rem;
+}
+
+.auth-buttons {
   display: flex;
   gap: 1rem;
 }
@@ -21,10 +32,10 @@
 .auth-buttons .login-button, 
 .auth-buttons .register-button, 
 .auth-buttons .logout-button {
-  display: inline-flex; /* Ensure links behave like buttons */
+  display: inline-flex;
   justify-content: center;
   align-items: center;
-  min-width: 90px; /* Consistent button width */
+  min-width: 90px;
   background-color: var(--button-bg);
   color: var(--button-text);
   border: var(--button-border);
@@ -32,7 +43,7 @@
   border-radius: 8px;
   font-size: inherit;
   text-align: center;
-  text-decoration: none; /* Remove underline from links */
+  text-decoration: none;
   transition: var(--global-btn-transition);
   white-space: nowrap;
 }
@@ -52,6 +63,6 @@
 .auth-buttons .login-button,
 .auth-buttons .register-button {
   line-height: 1.2;
-  height: 38px;
+  height: 28px;
   margin: 0;
 }

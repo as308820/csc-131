@@ -18,9 +18,9 @@ function LogIn() {
     axios.post("http://localhost:8080/api/auth/login",
       { email, password },
       {
-        withCredentials: true,  // Ensures cookies are sent
+        withCredentials: true,
         headers: {
-          'Content-Type': 'application/json'  // Ensures proper body parsing
+          'Content-Type': 'application/json'
         }
       })
     .then(result => {

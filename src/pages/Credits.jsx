@@ -30,7 +30,7 @@ const Credits = () => {
 
     const interval = setInterval(() => {
       if (scrollSpeed !== 0) {
-        container.scrollLeft += scrollSpeed * 5; // Adjust speed multiplier
+        container.scrollLeft += scrollSpeed * 5;
       }
     }, 16);
 

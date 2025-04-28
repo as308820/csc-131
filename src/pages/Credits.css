@@ -1,5 +1,5 @@
 .credits-carousel {
-    height: 50vh; /* Shorten carousel height */
+    height: 50vh;
     justify-content: center;
     align-items: center;
     display: flex;
@@ -41,7 +41,7 @@
     width: 100%;
     aspect-ratio: 1 / 1.2;
     object-fit: cover;
-    border-radius: 50% / 40%; /* Oval shape */
+    border-radius: 50% / 40%;
     border: var(--button-border);
     margin-bottom: 0.75rem;
   }
@@ -51,12 +51,12 @@
   }
   
   .credits-carousel::-webkit-scrollbar {
-    display: none; /* Hide scrollbar */
+    display: none;
   }
   
   .credits-carousel {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
     transition: var(--global-transition);
   }
   

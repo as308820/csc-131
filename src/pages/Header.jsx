@@ -9,26 +9,28 @@ const Header = () => {
 
   return (
     <header className="header">
-      <Link to="/" className="logo-link">
-        <img src="/logo.webp" alt="Quiz App Logo" className="logo" />
-      </Link>
-      <nav className="nav-links">
-        <Link to="/about">About</Link>
-        <Link to="/contacts">Contacts</Link>
-        <Link to="/credits">Credits</Link>
-        {user && !user.isAdmin && (
-            <Link to="/quiz-list" className="about-button">
-                Quizzes
-            </Link>
-        )}
-        {user?.isAdmin && (
-          <>
-            <Link to="/manage-quizzes">Manage Quizzes</Link>
-            <Link to="/admin-results">Admin Results</Link>
-            <Link to="/user-list">User List</Link>
-          </>
-        )}
-      </nav>
+      <div className="left-group">
+        <Link to="/" className="logo-link">
+          <img src="/logo.webp" alt="Quiz App Logo" className="logo" />
+        </Link>
+        <nav className="nav-links">
+          <Link to="/about">About</Link>
+          <Link to="/contacts">Contacts</Link>
+          <Link to="/credits">Credits</Link>
+          {user && !user.isAdmin && (
+              <Link to="/quiz-list" className="about-button">
+                  Quizzes
+              </Link>
+          )}
+          {user?.isAdmin && (
+            <>
+              <Link to="/manage-quizzes">Manage Quizzes</Link>
+              <Link to="/admin-results">Admin Results</Link>
+              <Link to="/user-list">User List</Link>
+            </>
+          )}
+        </nav>
+      </div>
       <nav className="auth-buttons">
         {user ? (
           <>

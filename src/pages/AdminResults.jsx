@@ -25,7 +25,7 @@ const AdminResults = () => {
 
   const toggleResults = async (quizId) => {
     if (selectedQuizId === quizId) {
-      setSelectedQuizId(null);  // Collapse if same quiz is clicked
+      setSelectedQuizId(null);
     } else {
       try {
         const response = await axios.get(`/api/attempts/quiz/${quizId}`);

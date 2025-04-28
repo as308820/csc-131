@@ -5,7 +5,7 @@
   border-radius: 16px;
   max-width: 600px;
   margin: 2rem auto;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Slightly darker for contrast */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   text-align: center;
   transition: var(--global-btn-transition);
 }
@@ -20,7 +20,7 @@
   margin: 0.5rem 0 1rem 0;
   border: var(--button-border);
   border-radius: 8px;
-  background-color: var(--bg-color); /* Higher contrast */
+  background-color: var(--bg-color);
   color: var(--text-color);
   transition: var(--global-transition);
 }
