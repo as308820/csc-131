@@ -94,3 +94,8 @@
   margin-bottom: 10px;
   text-align: center;
 }
+
+.login-form input::placeholder {
+  color: var(--text-color);
+  opacity: 0.7;
+}

@@ -42,39 +42,32 @@ function LogIn() {
 
   return (
     <div className="login-container">
-      <div className="login-box">
+      <form className="login-form" onSubmit={handleLogin}>
         <h2>Log In</h2>
 
+        <input
+          type="text"
+          placeholder="Email"
+          onChange={(e)=>setEmail(e.target.value)}
+          name="email"
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          onChange={(e)=>setPassword(e.target.value)}
+          name="password"
+        />
 
-        
+        {error && <div className="error-message">{error}</div>}
 
-        <form onSubmit={handleLogin}>
-  
-           {/* name/Email Input */}
-           <input
-            type="text"
-            onChange={(e)=>setEmail(e.target.value)} name ="email"
-            className="login-input"
-          />
-          {/* Password Input */}
-          <input
-            type="password"
-            onChange={(e)=>setPassword(e.target.value)}name ="Password"
-            className="login-input"
-          />
-          {/*error catch message*/}
-          {error && <div className="error-message">{error}</div>}
+        <button type="submit" className="login-button">
+          Log In
+        </button>
 
-          {/* Submit Button */}
-          <button type="submit" className="login-button">
-            Log In
-          </button>
-        </form>
-        {/* Sign Up Link */}
         <p className="signup-text">
           Don't have an account? <Link to="/signup">Sign up</Link>
         </p>
-      </div>
+      </form>
     </div>
   );
 }

@@ -34,6 +34,7 @@
   text-align: center;
   text-decoration: none; /* Remove underline from links */
   transition: var(--global-btn-transition);
+  white-space: nowrap;
 }
 
 .nav-links a:hover,
@@ -48,10 +49,9 @@
   align-self: center;
 }
 
-/* Consistency for LogIn and SignUp buttons */
 .auth-buttons .login-button,
 .auth-buttons .register-button {
-  line-height: 1.2; /* Align text vertically */
-  height: 38px; /* Match nav button height */
-  margin: 0; /* Remove any default margins */
+  line-height: 1.2;
+  height: 38px;
+  margin: 0;
 }
