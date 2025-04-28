@@ -20,6 +20,7 @@ app.use(cors({ origin: true, credentials: true }));
 app.use(express.json());
 app.use('/api/auth', authRoutes);
 
+
 // MongoDB connection
 mongoose
   .connect(process.env.MONGO_URI)
@@ -39,7 +40,9 @@ app.get("/api/quizzes", async (req, res) => {
 
 // external routes
 const quizRoutes = require('./routes/quiz');
+const quizAttemptRoutes = require('./routes/quizAttempts');
 app.use(quizRoutes);
+app.use('/api/attempts', quizAttemptRoutes);
 
 // Server
 const port = process.env.PORT || 8080;

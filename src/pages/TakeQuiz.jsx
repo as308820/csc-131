@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useBeforeUnload } from 'react-use';
 import axios from 'axios';
 
 const TakeQuiz = () => {
@@ -19,7 +18,7 @@ const TakeQuiz = () => {
         const response = await axios.get(`/api/quizzes/${quizId}`);
         setQuizData(response.data);
         setAnswers(new Array(response.data.questions.length).fill(null));
-        setTimeLeft(response.data.duration * 60);
+        setTimeLeft(response.data.duration * 60); // Duration in seconds
         setLoading(false);
       } catch (error) {
         console.error('Error fetching quiz:', error);
@@ -29,7 +28,7 @@ const TakeQuiz = () => {
     fetchQuiz();
   }, [quizId]);
 
-  // Countdown timer
+  // Timer logic
   useEffect(() => {
     if (timeLeft <= 0 || submitted) return;
 
@@ -40,73 +39,50 @@ const TakeQuiz = () => {
     return () => clearInterval(timer);
   }, [timeLeft, submitted]);
 
-  const handleAnswerChange = (questionIndex, answer) => {
-    const newAnswers = [...answers];
-    newAnswers[questionIndex] = answer;
-    setAnswers(newAnswers);
+  const handleAnswerChange = (questionIndex, optionIndex) => {
+    const updatedAnswers = [...answers];
+    updatedAnswers[questionIndex] = optionIndex;
+    setAnswers(updatedAnswers);
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     setSubmitted(true);
     // TODO: Add grading logic and result submission here
   };
 
-  // Browser unload protection
-  useBeforeUnload(!submitted, (e) => {
-    e.preventDefault();
-    e.returnValue = '';
-  });
-
-  // Navigation blocker (covers internal navigation)
-  useEffect(() => {
-    const handleBeforeRoute = (e) => {
-      if (!submitted) {
-        const confirmationMessage = "You have not submitted the quiz. Leaving will submit your answers.";
-        e.preventDefault();
-        e.returnValue = confirmationMessage;
-        return confirmationMessage;
-      }
-    };
-
-    window.addEventListener("beforeunload", handleBeforeRoute);
-
-    return () => {
-      window.removeEventListener("beforeunload", handleBeforeRoute);
-    };
-  }, [submitted]);
-
-    console.log("Loading:", loading);
-    console.log("Quiz Data:", quizData);
-    console.log("Quiz Questions:", quizData?.questions);
-
-    if (loading || !quizData || !Array.isArray(quizData.questions)) {
-        console.warn("Quiz Data Invalid:", quizData);
-        return <div>Loading quiz...</div>;
-      }
+  if (loading) return <div>Loading quiz...</div>;
+  if (!quizData) return <div>Quiz not found</div>;
 
   return (
     <div>
       <h2>{quizData.quizTitle}</h2>
-      <div>Time left: {Math.floor(timeLeft / 60)}:{('0' + (timeLeft % 60)).slice(-2)}</div>
-      {Array.isArray(quizData.questions) && quizData.questions.map((q, index) => (
-        <div key={index}>
-            <p>{q.questionText}</p>
-            {q.options.map((option, i) => (
-            <label key={i}>
+      <div>Time Remaining: {Math.floor(timeLeft / 60)}:{String(timeLeft % 60).padStart(2, '0')}</div>
+
+      {quizData.questions.map((q, idx) => (
+        <div key={idx}>
+          <h4>{q.questionText}</h4>
+          {q.options.map((opt, optIdx) => (
+            <div key={optIdx}>
+              <label>
                 <input
-                type="radio"
-                name={`question-${index}`}
-                value={option}
-                checked={answers[index] === option}
-                onChange={() => handleAnswerChange(index, option)}
-                disabled={submitted}
+                  type="radio"
+                  name={`question-${idx}`}
+                  checked={answers[idx] === optIdx}
+                  onChange={() => handleAnswerChange(idx, optIdx)}
+                  disabled={submitted}
                 />
-                {option}
-            </label>
-            ))}
+                {opt}
+              </label>
+            </div>
+          ))}
         </div>
-        ))}
-      {!submitted && <button onClick={handleSubmit}>Submit Quiz</button>}
+      ))}
+
+      {!submitted ? (
+        <button onClick={handleSubmit}>Submit Quiz</button>
+      ) : (
+        <div>Quiz submitted! (Grading to be implemented)</div>
+      )}
     </div>
   );
 };
