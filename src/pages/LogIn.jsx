@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./LogIn.css"; // Import the CSS file for styling
-import axios from 'axios';
+import axios from '../axios'; 
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext'; 
 
@@ -12,9 +12,17 @@ function LogIn() {
   const navigate = useNavigate();
   const [error, setError] = useState("");
 
-  const handleLogin=(e)=>{
+  const handleLogin = (e) => {
+    console.log('Axios defaults:', axios.defaults);
     e.preventDefault();
-    axios.post("http://localhost:8080/api/auth/login", { email, password })
+    axios.post("http://localhost:8080/api/auth/login",
+      { email, password },
+      {
+        withCredentials: true,  // Ensures cookies are sent
+        headers: {
+          'Content-Type': 'application/json'  // Ensures proper body parsing
+        }
+      })
     .then(result => {
       if (result.data.message === "success") {
         login(result.data.user);
@@ -30,8 +38,7 @@ function LogIn() {
         setError("An unexpected error occurred.");
       }
     });
-
-  }
+  };
 
   return (
     <div className="login-container">

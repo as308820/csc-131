@@ -2,14 +2,7 @@ const express = require('express');
 const router = express.Router();
 const QuizAttempt = require('../models/QuizAttempt');
 const quizManager = require('../services/quizManager');
-
-// Middleware to get userId (assuming req.user._id exists)
-const requireAuth = (req, res, next) => {
-  if (!req.user) {
-    return res.status(401).json({ error: 'Unauthorized' });
-  }
-  next();
-};
+const requireAuth = require('../middleware/requireAuth');
 
 // GET /api/attempts/:quizId (Start or Resume Attempt)
 router.get('/:quizId', requireAuth, async (req, res) => {

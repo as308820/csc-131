@@ -16,9 +16,20 @@ const app = express();
 
 // Middleware
 app.use(morgan("dev"));
-app.use(cors({ origin: true, credentials: true }));
+const corsOptions = {
+  origin: process.env.CLIENT_URL || 'http://localhost:3000',
+  credentials: true
+};
+
+app.use(cors(corsOptions));              // Handles normal requests (GET, POST, etc.)
+app.options('*', cors(corsOptions));  
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
+
 app.use(express.json());
+
 app.use('/api/auth', authRoutes);
+
 
 
 // MongoDB connection

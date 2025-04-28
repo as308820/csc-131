@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { useParams } from 'react-router-dom';
+import axios from '../axios'; 
 
 const TakeQuiz = () => {
   const { quizId } = useParams();
-  const navigate = useNavigate();
 
   const [quizData, setQuizData] = useState(null);
   const [answers, setAnswers] = useState([]);
@@ -15,7 +14,7 @@ const TakeQuiz = () => {
   useEffect(() => {
     const fetchQuiz = async () => {
       try {
-        const response = await axios.get(`/api/quizzes/${quizId}`);
+        const response = await axios.get(`/api/quizzes/${quizId}`, { withCredentials: true });
         setQuizData(response.data);
         setAnswers(new Array(response.data.questions.length).fill(null));
         setTimeLeft(response.data.duration * 60); // Duration in seconds
@@ -27,6 +26,28 @@ const TakeQuiz = () => {
 
     fetchQuiz();
   }, [quizId]);
+
+  useEffect(() => {
+    const startAttempt = async () => {
+      if (!quizData?._id) {
+        console.warn("Quiz data loaded but missing _id:", quizData);
+        return;  // Prevent sending if no quiz ID
+      }
+  
+      console.log("Starting attempt for quiz ID:", quizData._id);
+  
+      try {
+        await axios.get(`/api/attempts/${quizData._id}`, { withCredentials: true });
+        console.log("Quiz attempt started successfully.");
+      } catch (err) {
+        console.error('Error starting quiz attempt:', err);
+      }
+    };
+  
+    if (quizData) {
+      startAttempt();
+    }
+  }, [quizData]);
 
   // Timer logic
   useEffect(() => {
@@ -45,9 +66,21 @@ const TakeQuiz = () => {
     setAnswers(updatedAnswers);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setSubmitted(true);
-    // TODO: Add grading logic and result submission here
+  
+    try {
+      const response = await axios.post('/api/quiz-attempts/submit', {
+        quizId: quizData._id,
+        answers,
+      }, { withCredentials: true });
+  
+      console.log('Quiz submitted successfully:', response.data);
+      // Optionally show a success message or redirect
+    } catch (error) {
+      console.error('Error submitting quiz:', error);
+      // Optionally handle submission failure (e.g., retry logic or a user message)
+    }
   };
 
   if (loading) return <div>Loading quiz...</div>;
