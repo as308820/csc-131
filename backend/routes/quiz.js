@@ -32,7 +32,7 @@ router.get("/api/quizzes/:quizId", async (req, res) => {
 
 router.put("/api/quizzes/:id", async (req, res) => {
   try {
-    await quizManager.updateQuiz(req.params.id, req.body);
+    await quizManager.editQuiz(req.params.id, req.body);
     res.status(200).json({ message: "Quiz updated successfully" });
   } catch (err) {
     console.error(err);

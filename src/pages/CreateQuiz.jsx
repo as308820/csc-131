@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import axios from 'axios';
+//import axios from 'axios';
 import './CreateQuiz.css';  // Add styles later
 
 const CreateQuiz = () => {
   const [quizTitle, setQuizTitle] = useState('');
   const [questions, setQuestions] = useState([]);
   const [message, setMessage] = useState('');
+  const [duration, setDuration] = useState(0);
 
   // Add a new question field
   const addQuestion = () => {
@@ -21,23 +22,24 @@ const CreateQuiz = () => {
   };
 
   // Handle input changes
-  const handleQuestionChange = (index, field, value) => {
-    const newQuestions = [...questions];
-    newQuestions[index][field] = value;
-    setQuestions(newQuestions);
-  };
+  //const handleQuestionChange = (index, field, value) => {
+  //  const newQuestions = [...questions];
+  //  newQuestions[index][field] = value;
+  //  setQuestions(newQuestions);
+  //};
 
   // Submit quiz to backend
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('/api/quizzes', { quizTitle, questions });
-      setMessage('Quiz created successfully!');
-      setQuizTitle('');
-      setQuestions([]);
+        // const response = await axios.post('/api/quizzes', { quizTitle, duration, questions });
+        setMessage('Quiz created successfully!');
+        setQuizTitle('');
+        setDuration(0);
+        setQuestions([]);
     } catch (err) {
-      console.error(err);
-      setMessage('Error creating quiz.');
+        console.error(err);
+        setMessage('Error creating quiz.');
     }
   };
 
@@ -47,11 +49,19 @@ const CreateQuiz = () => {
       {message && <p>{message}</p>}
       <form onSubmit={handleSubmit}>
         <input
-          type="text"
-          placeholder="Quiz Title"
-          value={quizTitle}
-          onChange={(e) => setQuizTitle(e.target.value)}
-          required
+            type="text"
+            placeholder="Quiz Title"
+            value={quizTitle}
+            onChange={(e) => setQuizTitle(e.target.value)}
+            required
+        />
+        <label>Duration (minutes):</label>
+        <input
+            type="number"
+            min="1"
+            value={duration}
+            onChange={(e) => setDuration(parseInt(e.target.value, 10) || 0)}
+            placeholder="Enter duration in minutes"
         />
         {questions.map((q, idx) => (
         <div key={idx} className="question-block">
