@@ -1,0 +1,39 @@
+.review-quiz-container {
+    background-color: var(--card-bg);
+    padding: 2rem;
+    border-radius: 16px;
+    max-width: 600px;
+    margin: 2rem auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: var(--global-transition);
+  }
+  
+  .result-box {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    border: var(--button-border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+    transition: var(--global-transition);
+  }
+  
+  .return-quizlist-button {
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    border: var(--button-border);
+    padding: 0.75rem 1.5rem;
+    border-radius: 12px;
+    cursor: pointer;
+    margin: 2rem auto 0 auto;
+    display: block;
+    width: 60%;
+    text-align: center;
+    transition: var(--global-btn-transition);
+  }
+  
+  .return-quizlist-button:hover {
+    background-color: var(--button-hover-bg);
+  }
+  
