@@ -12,6 +12,18 @@
     margin-bottom: 1.5rem;
 }
 
+.user-list-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease, opacity 0.5s ease;
+    opacity: 0;
+}
+  
+.user-list-content.show {
+    max-height: 500px;  /* Adjust if needed */
+    opacity: 1;
+}
+
 .user-toggle-button {
     background-color: var(--button-bg);
     color: var(--button-text);
