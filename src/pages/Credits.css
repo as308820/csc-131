@@ -7,8 +7,7 @@
     scroll-behavior: smooth;
     padding: 2rem;
     background-color: var(--card-bg);
-    border-radius: 16px;
-    max-width: 90%;
+    max-width: 100%;
     margin: 10rem auto 2rem auto;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     transition: var(--global-transition);
