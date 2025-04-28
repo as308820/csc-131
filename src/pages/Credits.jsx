@@ -1,83 +1,56 @@
-import React from 'react'
-import FloatingButton from '../components/FloatingButton'
+import React, { useRef, useEffect, useState } from 'react';
+import './Credits.css';
+
+const members = [
+  { role: 'Team Manager', name: 'David Gonzales', img: '/Headshots/DavidHeadshot.jpg' },
+  { role: 'Analyst', name: 'Isaac Benitez Cisneros', img: '/Headshots/IsaacHeadshot.jpg' },
+  { role: 'Designer', name: 'Long Nguyen', img: '/Headshots/LongHeadshot.jpg' },
+  { role: 'Designer', name: 'Alex Basden', img: '/Headshots/AlexHeadshot.jpg' },
+  { role: 'Programmer', name: 'Joshua James', img: '/Headshots/JoshuaHeadshot.jpg' },
+  { role: 'Programmer', name: 'Osvaldo Sanchez-Gonzales', img: '/Headshots/OsvaldoHeadshot.jpg' },
+  { role: 'Programmer', name: 'Dylan Patel', img: '/Headshots/DylanHeadshot.jpg' },
+  { role: 'Quality Control', name: 'Aaron-Sean Rodriguez', img: '/Headshots/AaronHeadshot.jpg' },
+];
 
 const Credits = () => {
-    return (
-        <div>
-            {/* Credits Page intro */}
-            <h2 style={{ marginBottom: '20px' }}>Credits Page</h2>
-            <h3 style={{ marginBottom: '20px' }}> Meet the team!</h3>
+  const containerRef = useRef(null);
+  const [scrollSpeed, setScrollSpeed] = useState(0);
 
-            <h4 style={{ marginBottom: '10px' }}>Team Manager</h4>
-            <p style={{ marginBottom: '10px' }}>David Gonzales</p>
-            {/* Headshot picture */}
-            <img
-                src="/Headshots/DavidHeadshot.jpg"
-                alt="DavidHeadshot"
-                style={{ width: '100px', height: '100px', marginBottom: '40px' }}
-            />
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      const { clientX, currentTarget } = e;
+      const { width, left } = currentTarget.getBoundingClientRect();
+      const midPoint = left + width / 2;
+      const distanceFromCenter = (clientX - midPoint) / (width / 2);
+      setScrollSpeed(distanceFromCenter);
+    };
 
-            {/* Analyst About */}
-            <h4 style={{ marginBottom: '10px' }}>Analyst</h4>
-            <p style={{ marginBottom: '10px' }}>Isaac Benitez Cisneros</p>
-            <img
-                src="/Headshots/IsaacHeadshot.jpg"
-                alt="IsaacHeadshot"
-                style={{ width: '100px', height: '100px', marginBottom: '40px' }}
-            />
+    const container = containerRef.current;
+    container.addEventListener('mousemove', handleMouseMove);
 
-            {/* Designer About */}
-            <h4 style={{ marginBottom: '10px' }}>Designer</h4>
-            <p style={{ marginBottom: '10px' }}>Long Nguyen</p>
-            <img
-                src="/Headshots/LongHeadshot.jpg"
-                alt="LongHeadshot"
-                style={{ width: '100px', height: '100px', marginBottom: '40px' }}
-            />
+    const interval = setInterval(() => {
+      if (scrollSpeed !== 0) {
+        container.scrollLeft += scrollSpeed * 5; // Adjust speed multiplier
+      }
+    }, 16);
 
-            <p style={{ marginBottom: '10px' }}>Alex Basden</p>
-            <img
-                src="/Headshots/AlexHeadshot.jpg"
-                alt="AlexHeadshot"
-                style={{ width: '100px', height: '100px', marginBottom: '40px' }}
-            />
+    return () => {
+      container.removeEventListener('mousemove', handleMouseMove);
+      clearInterval(interval);
+    };
+  }, [scrollSpeed]);
 
-            {/* Programmer About */}
-            <h4 style={{ marginBottom: '10px' }}>Programmer</h4>
-            <p style={{ marginBottom: '10px' }}>Joshua James</p>
-            <img
-                src="/Headshots/JoshuaHeadshot.jpg"
-                alt="JoshuaHeadshot"
-                style={{ width: '100px', height: '100px', marginBottom: '40px' }}
-            />
-
-            <p style={{ marginBottom: '10px' }}>Osvaldo Sanchez-Gonzales</p>
-            <img
-                src="/Headshots/OsvaldoHeadshot.jpg"
-                alt="OsvaldoHeadshot"
-                style={{ width: '100px', height: '100px', marginBottom: '40px' }}
-            />
-
-            <p style={{ marginBottom: '10px' }}>Dylan Patel</p>
-            <img
-                src="/Headshots/DylanHeadshot.jpg"
-                alt="DylanHeadshot"
-                style={{ width: '100px', height: '100px', marginBottom: '40px' }}
-            />
-
-            {/* Quality Control About */}
-            <h4 style={{ marginBottom: '10px' }}>Quality Control</h4>
-            <p style={{ marginBottom: '10px' }}>Aaron-Sean Rodriguez</p>
-            <img
-                src="/Headshots/AaronHeadshot.jpg"
-                alt="AaronHeadshot"
-                style={{ width: '100px', height: '100px', marginBottom: '40px' }}
-            />
-
-           
-            <FloatingButton />
+  return (
+    <div className="credits-carousel" ref={containerRef}>
+      {members.map((member, idx) => (
+        <div key={idx} className="member-card">
+          <img src={member.img} alt={`${member.name} Headshot`} />
+          <h4>{member.role}</h4>
+          <p>{member.name}</p>
         </div>
-    )
-}
+      ))}
+    </div>
+  );
+};
 
-export default Credits
+export default Credits;
