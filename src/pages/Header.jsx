@@ -14,12 +14,25 @@ import { AuthContext } from '../context/AuthContext';
             </Link>
             
             <nav className="nav-links">
-                <Link to="/about" className="about-button">About</Link>
-                <Link to="/contacts" className="contacts-button">Contacts</Link>
-                <Link to="/credits" className="credits-button">Credits</Link>
+                <Link to="/about" className="about-button">
+                    About
+                </Link>
+                <Link to="/contacts" className="contacts-button">
+                    Contacts
+                </Link>
+                <Link to="/credits" className="credits-button">
+                    Credits
+                </Link>
 
                 {/*Test link to quiz manager */}
-                <Link to="/manage-quizzes" className="about-button">[Dev Only] Manage Quizzes</Link>
+                <Link to="/manage-quizzes" className="about-button">
+                    [Dev Only] Manage Quizzes
+                </Link>
+
+                {/*Test link to quiz take */}
+                <Link to="/quiz-list" className='quiz-list-button'>
+                    Quizzes
+                </Link>
             </nav>
 
             {user ? (

@@ -41,7 +41,7 @@
   margin-right: auto;
 }
 
-.login-button, .logout-button, .register-button, .about-button, .contacts-button, .credits-button {
+.login-button, .logout-button, .quiz-list-button, .register-button, .about-button, .contacts-button, .credits-button {
   border: var(--button-border);
   background: var(--button-bg);
   color: var(--text-color);
@@ -55,7 +55,7 @@
   justify-content: center;
 }
 
-.login-button:hover, .logout-button:hover, .register-button:hover, .about-button:hover, .contacts-button:hover, .credits-button:hover {
+.login-button:hover, .logout-button:hover, .quiz-list-button:hover, .register-button:hover, .about-button:hover, .contacts-button:hover, .credits-button:hover {
   background: var(--button-hover-bg);
   color: #1f1f1f;
 }

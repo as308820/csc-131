@@ -15,9 +15,13 @@ import EditQuiz from './pages/EditQuiz';
 import { AccessibilityProvider, useAccessibility } from './accessibility/AccessibilityContext';
 import AccessibilityButton from "./accessibility/AccessibilityButton";
 
-//quiz manager test imports (should be refactored when login system is available)
+//quiz manager imports
 import ManageQuizzes from './pages/ManageQuizzes';
 import CreateQuiz from './pages/CreateQuiz';
+
+//quiz taker imports
+import QuizList from './pages/QuizList';
+import TakeQuiz from './pages/TakeQuiz';
 
 function LayoutContent() {
   const { theme, textSize } = useAccessibility();
@@ -40,10 +44,14 @@ function LayoutContent() {
         <Route path="/Login" element={<Login />} />
         <Route path="/SignUp" element={<SignUp />} />
 
-        {/* Test route for quiz manager*/}
+        {/*route for quiz manager (admin context)*/}
         <Route path="/manage-quizzes" element={<ManageQuizzes />} />
         <Route path="/create-quiz" element={<CreateQuiz />} />
         <Route path="/edit-quiz/:quizId" element={<EditQuiz />} />
+
+        {/*rout for taking quiz (user context)*/}
+        <Route path="/quiz-list" element={<QuizList />} />
+        <Route path="/take-quiz/:quizId" element={<TakeQuiz />} />
       </Routes>
 
       {/* Accessibility Button */}
