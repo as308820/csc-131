@@ -1,123 +1,69 @@
-import React, { useState } from "react";
-import { useNavigate, Link } from 'react-router-dom';
-import { TextField, Button, Paper, Typography, Box } from "@mui/material";
-import axios from "axios";
+import React, { useState } from 'react';
+import axios from '../axios';
+import { useNavigate } from 'react-router-dom';
+import { useAccessibility } from '../accessibility/AccessibilityContext';
+import './LogIn.css';
 
-axios.defaults.baseURL = process.env.REACT_APP_API_URL || "http://localhost:8080";
-
-export default function SignUp() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
-    adminCode: ''  
-  });
+const SignUp = () => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [adminCode, setAdminCode] = useState('');
+  const [error, setError] = useState('');
   const navigate = useNavigate();
+  const { textSize } = useAccessibility();
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prevState => ({ ...prevState, [name]: value }));
-  };
-
-  const handleSignUp = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Submitting signup:", formData);
-
-    if (!formData.name || !formData.email || !formData.password) {
-      alert("All fields are required.");
-      return;
-    }
+    setError('');
 
     try {
-      const response = await axios.post('/api/auth/signup', formData);
-
-      if (response.status === 201) {
-        console.log("User created successfully");
-        navigate("/login"); 
-      } else {
-        console.warn("Unexpected status code:", response.status);
-        alert(`Signup failed with status: ${response.status}`);
-      }
-    } catch (error) {
-      console.error("Signup error:", error);
-      if (error.response) {
-        console.error("Server responded with:", error.response.status, error.response.data);
-        alert(`Signup failed: ${error.response.data.message || error.message}`);
-      } else if (error.request) {
-        console.error("No response received:", error.request);
-        alert("No response from server. Please check your network.");
-      } else {
-        console.error("Axios error:", error.message);
-        alert(`Signup failed: ${error.message}`);
-      }
+      await axios.post('/api/auth/signup', { name, email, password, adminCode });
+      navigate('/login');
+    } catch (err) {
+      setError(err.response?.data?.message || 'Signup failed.');
     }
   };
 
   return (
-    <Paper elevation={3} sx={{ p: 4, maxWidth: 400, margin: '40px auto' }}>
-      <Typography variant="h5" sx={{ mb: 3, textAlign: 'center' }}>
-        Sign Up
-      </Typography>
-
-      <Box component="form" onSubmit={handleSignUp} noValidate>
-        <TextField
-          margin="normal"
-          required
-          fullWidth
-          id="name"
-          label="Name"
-          name="name"
-          autoComplete="name"
-          value={formData.name}
-          onChange={handleChange}
+    <div className="login-container">
+      <form className="login-form" onSubmit={handleSubmit}>
+        <h2 style={{ fontSize: `${textSize + 10}px` }}>Sign Up</h2>
+        {error && <p className="error-message">{error}</p>}
+        <input
+          type="text"
+          placeholder="Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          style={{ fontSize: `${textSize}px` }}
         />
-        <TextField
-          margin="normal"
-          required
-          fullWidth
-          id="email"
-          label="Email Address"
-          name="email"
-          autoComplete="email"
+        <input
           type="email"
-          value={formData.email}
-          onChange={handleChange}
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          style={{ fontSize: `${textSize}px` }}
         />
-        <TextField
-          margin="normal"
-          required
-          fullWidth
-          name="password"
-          label="Password"
+        <input
           type="password"
-          id="password"
-          autoComplete="new-password"
-          value={formData.password}
-          onChange={handleChange}
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          style={{ fontSize: `${textSize}px` }}
         />
-        <TextField
-          margin="normal"
-          required
-          fullWidth
-          id="adminCode"
-          label="Admin Code"
-          name="adminCode"
-          autoComplete="off"
-          value={formData.adminCode}
-          onChange={(e) => setFormData({ ...formData, adminCode: e.target.value })}
+        <input
+          type="text"
+          placeholder="Admin Code (optional)"
+          value={adminCode}
+          onChange={(e) => setAdminCode(e.target.value)}
+          style={{ fontSize: `${textSize}px` }}
         />
-        <Button
-          type="submit"
-          fullWidth
-          variant="contained"
-          sx={{ mt: 3, mb: 2 }}
-        >
+        <button type="submit" className="login-button" style={{ fontSize: `${textSize}px` }}>
           Sign Up
-        </Button>
-        <Typography variant="body2" align="center">
-          Already have an account? <Link to="/login">Log In</Link>
-        </Typography>
-      </Box>
-    </Paper>
+        </button>
+      </form>
+    </div>
   );
-}
+};
+
+export default SignUp;
