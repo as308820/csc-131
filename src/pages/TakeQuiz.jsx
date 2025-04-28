@@ -1,74 +1,64 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import axios from '../axios'; 
-import { useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+import axios from '../axios';
+import { useAccessibility } from '../accessibility/AccessibilityContext';
+import './TakeQuiz.css';
 
 const TakeQuiz = () => {
   const { quizId } = useParams();
-
   const [quizData, setQuizData] = useState(null);
   const [answers, setAnswers] = useState([]);
   const [timeLeft, setTimeLeft] = useState(0);
   const [loading, setLoading] = useState(true);
   const [submitted, setSubmitted] = useState(false);
-
   const navigate = useNavigate();
+  const { textSize } = useAccessibility();
 
   useEffect(() => {
     const fetchQuiz = async () => {
       try {
-        const response = await axios.get(`/api/quizzes/${quizId}`, { withCredentials: true });
+        const response = await axios.get(`/api/quizzes/${quizId}`);
         setQuizData(response.data);
         setAnswers(new Array(response.data.questions.length).fill(null));
-        setTimeLeft(response.data.duration * 60); // Duration in seconds
+        setTimeLeft(response.data.duration * 60);
         setLoading(false);
       } catch (error) {
         console.error('Error fetching quiz:', error);
       }
     };
-
     fetchQuiz();
   }, [quizId]);
 
   useEffect(() => {
     const startAttempt = async () => {
       if (!quizData?._id) return;
-    
       try {
         const response = await axios.get(`/api/attempts/${quizData._id}`);
         const { submitted, startTime, duration, answers: savedAnswers } = response.data;
-    
         if (submitted) {
           setSubmitted(true);
-          setTimeLeft(0);  // ✅ Force timer to 0 if submitted
+          setTimeLeft(0);
         } else {
           const elapsed = Math.floor((Date.now() - new Date(startTime)) / 1000);
           setTimeLeft(duration * 60 - elapsed);
         }
-    
-        // ✅ Pre-fill answers if they exist
         if (savedAnswers && savedAnswers.length > 0) {
           setAnswers(savedAnswers);
         }
-
       } catch (err) {
         console.error('Error starting quiz attempt:', err);
       }
     };
-  
     if (quizData) {
       startAttempt();
     }
   }, [quizData]);
 
-  // Timer logic
   useEffect(() => {
     if (timeLeft <= 0 || submitted) return;
-
     const timer = setInterval(() => {
       setTimeLeft((prev) => prev - 1);
     }, 1000);
-
     return () => clearInterval(timer);
   }, [timeLeft, submitted]);
 
@@ -76,12 +66,8 @@ const TakeQuiz = () => {
     const updatedAnswers = [...answers];
     updatedAnswers[questionIndex] = optionIndex;
     setAnswers(updatedAnswers);
-
-    // Auto-save to backend
     try {
-      await axios.post(`/api/attempts/${quizData._id}/save-progress`, {
-        answers: updatedAnswers
-      });
+      await axios.post(`/api/attempts/${quizData._id}/save-progress`, { answers: updatedAnswers });
     } catch (err) {
       console.error('Auto-save failed:', err);
     }
@@ -89,18 +75,11 @@ const TakeQuiz = () => {
 
   const handleSubmit = async () => {
     setSubmitted(true);
-  
     try {
-      const response = await axios.post(`/api/attempts/${quizData._id}/submit`, {
-        answers,
-      }, { withCredentials: true });
+      await axios.post(`/api/attempts/${quizData._id}/submit`, { answers }, { withCredentials: true });
       navigate(`/review-quiz/${quizData._id}`);
-  
-      console.log('Quiz submitted successfully:', response.data);
-      // Optionally show a success message or redirect
     } catch (error) {
       console.error('Error submitting quiz:', error);
-      // Optionally handle submission failure (e.g., retry logic or a user message)
     }
   };
 
@@ -108,39 +87,42 @@ const TakeQuiz = () => {
   if (!quizData) return <div>Quiz not found</div>;
 
   return (
-    <div>
-      <h2>{quizData.quizTitle}</h2>
-      <div>
-        Time Remaining: 
-        {submitted 
-          ? "0:00" 
-          : `${Math.floor(timeLeft / 60)}:${String(timeLeft % 60).padStart(2, '0')}`}
+    <div className="take-quiz-container">
+      <h2 style={{ fontSize: `${textSize + 10}px` }}>{quizData.quizTitle}</h2>
+      <div className="quiz-timer" style={{ fontSize: `${textSize}px` }}>
+        Time Remaining: {submitted ? "0:00" : `${Math.floor(timeLeft / 60)}:${String(timeLeft % 60).padStart(2, '0')}`}
       </div>
-
-      {quizData.questions.map((q, idx) => (
-        <div key={idx}>
-          <h4>{q.questionText}</h4>
-          {q.options.map((opt, optIdx) => (
-            <div key={optIdx}>
-              <label>
-                <input
-                  type="radio"
-                  name={`question-${idx}`}
-                  checked={parseInt(answers[idx]) === optIdx}
-                  onChange={() => handleAnswerChange(idx, optIdx)}
-                  disabled={submitted}
-                />
-                {opt}
-              </label>
+      <div className="quiz-questions">
+        {quizData.questions.map((q, idx) => (
+          <div key={idx} className="question-block" style={{ fontSize: `${textSize}px` }}>
+            <h4>{q.questionText}</h4>
+            <div className="options">
+              {q.options.map((opt, optIdx) => (
+                <label key={optIdx} className="option-label">
+                  <input
+                    type="radio"
+                    name={`question-${idx}`}
+                    checked={parseInt(answers[idx]) === optIdx}
+                    onChange={() => handleAnswerChange(idx, optIdx)}
+                    disabled={submitted}
+                  />
+                  <span>{opt}</span>
+                </label>
+              ))}
             </div>
-          ))}
-        </div>
-      ))}
-
+          </div>
+        ))}
+      </div>
       {!submitted ? (
-        <button onClick={handleSubmit}>Submit Quiz</button>
+        <button
+          className="submit-quiz-button"
+          style={{ fontSize: `${textSize}px` }}
+          onClick={handleSubmit}
+        >
+          Submit Quiz
+        </button>
       ) : (
-        <div>Quiz submitted! (Grading to be implemented)</div>
+        <div style={{ fontSize: `${textSize}px` }}>Quiz submitted! (Grading to be implemented)</div>
       )}
     </div>
   );
