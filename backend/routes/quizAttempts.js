@@ -60,6 +60,79 @@ router.get('/', requireAuth, async (req, res) => {
   }
 });
 
+// GET /api/attempts/:quizId/review (Review specific attempt)
+router.get('/:quizId/review', requireAuth, async (req, res) => {
+  const { quizId } = req.params;
+  const userId = req.user.id;
+
+  try {
+    const attempt = await QuizAttempt.findOne({ userId, quizId });
+    if (!attempt || !attempt.submitted) {
+      return res.status(400).json({ error: 'Attempt not found or not submitted' });
+    }
+
+    const quiz = await quizManager.getQuizById(quizId);
+
+    // Calculate total points
+    let totalPoints = 0;
+    let earnedPoints = 0;
+    quiz.questions.forEach((question, idx) => {
+      totalPoints += question.points;
+      if (attempt.answers[idx] === question.correctAnswer) {
+        earnedPoints += question.points;
+      }
+    });
+
+    res.json({
+      quizTitle: quiz.quizTitle,
+      earnedPoints,
+      totalPoints,
+      startTime: attempt.startTime,
+      endTime: attempt.endTime
+    });
+  } catch (error) {
+    console.error('Error fetching review:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+// GET /api/attempts/quiz/:quizId (Admin view of all attempts for a quiz)
+router.get('/quiz/:quizId', requireAuth, async (req, res) => {
+  const { quizId } = req.params;
+
+  try {
+    const attempts = await QuizAttempt.find({ quizId, submitted: true }).populate('userId', 'name email');
+    const quiz = await quizManager.getQuizById(quizId);
+
+    const results = attempts.map(attempt => {
+      let totalPoints = 0;
+      let earnedPoints = 0;
+      quiz.questions.forEach((question, idx) => {
+        totalPoints += question.points;
+        if (attempt.answers[idx] === question.correctAnswer) {
+          earnedPoints += question.points;
+        }
+      });
+
+      return {
+        user: attempt.userId.name || attempt.userId.email,
+        earnedPoints,
+        totalPoints,
+        startTime: attempt.startTime,
+        endTime: attempt.endTime
+      };
+    });
+
+    res.json({
+      quizTitle: quiz.quizTitle,
+      results
+    });
+  } catch (error) {
+    console.error('Error fetching aggregated results:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
 // POST /api/attempts/:quizId/submit
 router.post('/:quizId/submit', requireAuth, async (req, res) => {
   const { quizId } = req.params;
