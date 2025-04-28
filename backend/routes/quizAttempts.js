@@ -79,7 +79,7 @@ router.get('/:quizId/review', requireAuth, async (req, res) => {
     let earnedPoints = 0;
     quiz.questions.forEach((question, idx) => {
       totalPoints += question.points;
-      if (attempt.answers[idx] === question.correctAnswer) {
+      if (parseInt(attempt.answers[idx]) === question.correctAnswer) { 
         earnedPoints += question.points;
       }
     });
@@ -110,7 +110,7 @@ router.get('/quiz/:quizId', requireAuth, async (req, res) => {
       let earnedPoints = 0;
       quiz.questions.forEach((question, idx) => {
         totalPoints += question.points;
-        if (attempt.answers[idx] === question.correctAnswer) {
+        if (parseInt(attempt.answers[idx]) === question.correctAnswer) { 
           earnedPoints += question.points;
         }
       });

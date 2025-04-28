@@ -32,6 +32,12 @@ import { AuthContext } from '../context/AuthContext';
                     </>
                 )}
 
+                {user && !user.isAdmin && (
+                    <Link to="/quiz-list" className="quiz-list-button">
+                        Quizzes
+                    </Link>
+                )}
+
             </nav>
 
             {user ? (
