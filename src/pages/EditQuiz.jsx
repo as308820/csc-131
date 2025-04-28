@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useAccessibility } from '../accessibility/AccessibilityContext';
+import './CreateQuiz.css';
 
 const EditQuiz = () => {
     const { quizId } = useParams();
@@ -11,6 +13,7 @@ const EditQuiz = () => {
     const [loading, setLoading] = useState(true);
     const [message, setMessage] = useState('');
     const [duration, setDuration] = useState(0);
+    const { textSize } = useAccessibility();
 
     useEffect(() => {
         const fetchQuiz = async () => {
@@ -48,14 +51,15 @@ const EditQuiz = () => {
     if (loading) return <div>Loading...</div>;
 
     return (
-        <div className="edit-quiz">
-            <h2>Edit Quiz</h2>
+        <div className="create-quiz" style={{ fontSize: `${textSize}px` }}>
+            <h2 style={{ fontSize: `${textSize + 10}px` }}>Edit Quiz</h2>
             {message && <p>{message}</p>}
             <input
                 type="text"
                 value={quizTitle}
                 onChange={(e) => setQuizTitle(e.target.value)}
                 placeholder="Quiz Title"
+                style={{ fontSize: `${textSize}px` }}
             />
 
             <label>Duration (minutes):</label>
@@ -65,6 +69,7 @@ const EditQuiz = () => {
                 value={duration}
                 onChange={(e) => setDuration(parseInt(e.target.value, 10) || 0)}
                 placeholder="Enter duration"
+                style={{ fontSize: `${textSize}px` }}
             />
 
             {questions.map((q, idx) => (
@@ -78,6 +83,7 @@ const EditQuiz = () => {
                             updated[idx].questionText = e.target.value;
                             setQuestions(updated);
                         }}
+                        style={{ fontSize: `${textSize}px` }}
                     />
 
                     <label>Points:</label>
@@ -90,6 +96,7 @@ const EditQuiz = () => {
                             updated[idx].points = parseInt(e.target.value, 10) || 1;
                             setQuestions(updated);
                         }}
+                        style={{ fontSize: `${textSize}px` }}
                     />
 
                     <label>Number of Answer Options:</label>
@@ -106,6 +113,7 @@ const EditQuiz = () => {
                             updated[idx].options = opts;
                             setQuestions(updated);
                         }}
+                        style={{ fontSize: `${textSize}px` }}
                     />
 
                     {q.options.map((opt, optIdx) => (
@@ -119,6 +127,7 @@ const EditQuiz = () => {
                                     updated[idx].options[optIdx] = e.target.value;
                                     setQuestions(updated);
                                 }}
+                                style={{ fontSize: `${textSize}px` }}
                             />
                         </div>
                     ))}
@@ -131,6 +140,7 @@ const EditQuiz = () => {
                             updated[idx].correctAnswer = parseInt(e.target.value, 10);
                             setQuestions(updated);
                         }}
+                        style={{ fontSize: `${textSize}px` }}
                     >
                         {q.options.map((_, optIdx) => (
                             <option key={optIdx} value={optIdx}>
@@ -142,19 +152,40 @@ const EditQuiz = () => {
             ))}
 
             <div className="button-group">
-                <button type="button" onClick={() => {
-                    setQuestions([
-                        ...questions,
-                        { questionText: '', options: ['', '', '', ''], correctAnswer: 0, points: 1 }
-                    ]);
-                }}>Add Question</button>
+                <button
+                    type="button"
+                    onClick={() => {
+                        setQuestions([
+                            ...questions,
+                            { questionText: '', options: ['', '', '', ''], correctAnswer: 0, points: 1 }
+                        ]);
+                    }}
+                    style={{ fontSize: `${textSize}px` }}
+                >
+                    Add Question
+                </button>
 
-                <button type="button" onClick={() => {
-                    setQuestions(questions.slice(0, -1));
-                }}>Delete Last Question</button>
+                <button
+                    type="button"
+                    className="delete-question"
+                    onClick={() => {
+                        setQuestions(questions.slice(0, -1));
+                    }}
+                    style={{ fontSize: `${textSize}px` }}
+                >
+                    Delete Last Question
+                </button>
             </div>
 
-            <button onClick={handleSave}>Save Changes</button>
+            <div className="save-quiz-container">
+                <button
+                    className="submit-quiz-button"
+                    style={{ fontSize: `${textSize}px` }}
+                    onClick={handleSave}
+                >
+                    Save Changes
+                </button>
+            </div>
         </div>
     );
 };

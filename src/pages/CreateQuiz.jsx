@@ -129,9 +129,19 @@ const CreateQuiz = () => {
 
         <div className="button-group">
           <button type="button" onClick={addQuestion}>Add Question</button>
-          <button type="button" onClick={deleteLastQuestion}>Delete Last Question</button>
+          <button
+            type="button"
+            className="delete-question"
+            onClick={deleteLastQuestion}
+          >
+            Delete Last Question
+          </button>
         </div>
-        <button type="submit">Submit Quiz</button>
+        <div className="save-quiz-container">
+          <button type="submit" className="submit-quiz-button">
+            Save Quiz
+          </button>
+        </div>
       </form>
     </div>
   );
