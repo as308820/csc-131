@@ -29,16 +29,25 @@ const TakeQuiz = () => {
 
   useEffect(() => {
     const startAttempt = async () => {
-      if (!quizData?._id) {
-        console.warn("Quiz data loaded but missing _id:", quizData);
-        return;  // Prevent sending if no quiz ID
-      }
-  
-      console.log("Starting attempt for quiz ID:", quizData._id);
-  
+      if (!quizData?._id) return;
+    
       try {
-        await axios.get(`/api/attempts/${quizData._id}`, { withCredentials: true });
-        console.log("Quiz attempt started successfully.");
+        const response = await axios.get(`/api/attempts/${quizData._id}`);
+        const { submitted, startTime, duration, answers: savedAnswers } = response.data;
+    
+        if (submitted) {
+          setSubmitted(true);
+          setTimeLeft(0);  // ✅ Force timer to 0 if submitted
+        } else {
+          const elapsed = Math.floor((Date.now() - new Date(startTime)) / 1000);
+          setTimeLeft(duration * 60 - elapsed);
+        }
+    
+        // ✅ Pre-fill answers if they exist
+        if (savedAnswers && savedAnswers.length > 0) {
+          setAnswers(savedAnswers);
+        }
+        
       } catch (err) {
         console.error('Error starting quiz attempt:', err);
       }
@@ -70,8 +79,7 @@ const TakeQuiz = () => {
     setSubmitted(true);
   
     try {
-      const response = await axios.post('/api/quiz-attempts/submit', {
-        quizId: quizData._id,
+      const response = await axios.post(`/api/attempts/${quizData._id}/submit`, {
         answers,
       }, { withCredentials: true });
   
@@ -89,7 +97,12 @@ const TakeQuiz = () => {
   return (
     <div>
       <h2>{quizData.quizTitle}</h2>
-      <div>Time Remaining: {Math.floor(timeLeft / 60)}:{String(timeLeft % 60).padStart(2, '0')}</div>
+      <div>
+        Time Remaining: 
+        {submitted 
+          ? "0:00" 
+          : `${Math.floor(timeLeft / 60)}:${String(timeLeft % 60).padStart(2, '0')}`}
+      </div>
 
       {quizData.questions.map((q, idx) => (
         <div key={idx}>

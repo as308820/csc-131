@@ -1,16 +1,28 @@
 const jwt = require('jsonwebtoken');
+const User = require('../models/User');  // Assuming you have a User model
 
-function requireAuth(req, res, next) {
+async function requireAuth(req, res, next) {
+    console.log("Cookies received:", req.cookies);  // 👈 Log incoming cookies
+
     const token = req.cookies.token;
     if (!token) {
-        return res.status(401).json({ message: 'Unauthorized' });
+        console.log("No token found.");
+        return res.status(401).json({ message: 'Unauthorized (no token)' });
     }
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        req.user = decoded;
+        console.log("Decoded token:", decoded);  // 👈 Log decoded JWT
+
+        const user = await User.findById(decoded.userId).select('_id email');
+        if (!user) {
+            console.log("User not found in DB.");
+            return res.status(401).json({ message: 'User not found' });
+        }
+        req.user = user;
         next();
     } catch (err) {
-        res.status(401).json({ message: 'Unauthorized' });
+        console.error("JWT verification failed:", err);
+        res.status(401).json({ message: 'Unauthorized (invalid token)' });
     }
 }
 

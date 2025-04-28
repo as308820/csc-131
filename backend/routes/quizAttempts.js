@@ -1,31 +1,38 @@
 const express = require('express');
 const router = express.Router();
 const QuizAttempt = require('../models/QuizAttempt');
-const quizManager = require('../services/quizManager');
+const QuizManager = require('../services/quizManager');
+const quizManager = new QuizManager();
 const requireAuth = require('../middleware/requireAuth');
 
 // GET /api/attempts/:quizId (Start or Resume Attempt)
 router.get('/:quizId', requireAuth, async (req, res) => {
   const { quizId } = req.params;
-  const userId = req.user._id;
+  const userId = req.user.id;
+
+  console.log("req.user:", req.user); 
+  console.log("quizId:", quizId);      
 
   try {
     const quiz = await quizManager.getQuizById(quizId);
     if (!quiz) return res.status(404).json({ error: 'Quiz not found' });
 
     let attempt = await QuizAttempt.findOne({ userId, quizId });
+    console.log("Existing attempt:", attempt); 
 
     const now = new Date();
     const quizEndTime = attempt ? new Date(attempt.startTime.getTime() + quiz.duration * 60000) : null;
 
     if (!attempt) {
-      // Create new attempt
+      console.log("No existing attempt found. Creating new attempt...");
       attempt = await QuizAttempt.create({ userId, quizId, startTime: now });
+      console.log("Created attempt:", attempt);  
     } else if (!attempt.submitted && quizEndTime <= now) {
-      // Auto-submit if expired
+      console.log("Attempt expired. Auto-submitting...");  
       attempt.submitted = true;
       attempt.endTime = quizEndTime;
       await attempt.save();
+      console.log("Attempt auto-submitted:", attempt);  
     }
 
     res.json({
@@ -43,7 +50,7 @@ router.get('/:quizId', requireAuth, async (req, res) => {
 // POST /api/attempts/:quizId/submit
 router.post('/:quizId/submit', requireAuth, async (req, res) => {
   const { quizId } = req.params;
-  const userId = req.user._id;
+  const userId = req.user.id;
   const { answers } = req.body;
 
   try {
