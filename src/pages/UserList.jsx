@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from '../axios';
 import { useNavigate } from 'react-router-dom';
+import './UserList.css';
 
 const UserList = () => {
     const [admins, setAdmins] = useState([]);
@@ -33,32 +34,34 @@ const UserList = () => {
         <h2>User List</h2>
 
         <h3>
-            <button onClick={() => setShowAdmins(!showAdmins)}>
+            <button className="user-toggle-button" onClick={() => setShowAdmins(!showAdmins)}>
                 {showAdmins ? '↓' : '→'} Admin
             </button>
             </h3>
             {showAdmins && (
             <div>
                 {admins.map((admin) => (
-                <p key={admin._id}>{admin.name}</p>
+                <p key={admin._id} className="user-entry">{admin.name}</p>
                 ))}
             </div>
         )}
 
         <h3>
-            <button onClick={() => setShowUsers(!showUsers)}>
+            <button className="user-toggle-button" onClick={() => setShowUsers(!showUsers)}>
                 {showUsers ? '↓' : '→'} Users
             </button>
         </h3>
         {showUsers && (
             <div>
                 {users.map((user) => (
-                    <p key={user._id}>{user.name}</p>
+                    <p key={user._id} className="user-entry">{user.name}</p>
                 ))}
             </div>
         )}
 
-        <button onClick={() => navigate('/')}>Return to Home</button>
+        <button className="return-home-button" onClick={() => navigate('/')}>
+            Return to Home
+        </button>
         </div>
     );
 };
