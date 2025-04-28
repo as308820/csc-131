@@ -47,6 +47,19 @@ router.get('/:quizId', requireAuth, async (req, res) => {
   }
 });
 
+// GET /api/attempts (List all attempts for the current user)
+router.get('/', requireAuth, async (req, res) => {
+  const userId = req.user.id;
+
+  try {
+    const attempts = await QuizAttempt.find({ userId });
+    res.json(attempts);
+  } catch (error) {
+    console.error('Error fetching attempts:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
 // POST /api/attempts/:quizId/submit
 router.post('/:quizId/submit', requireAuth, async (req, res) => {
   const { quizId } = req.params;
@@ -65,6 +78,27 @@ router.post('/:quizId/submit', requireAuth, async (req, res) => {
     res.json({ message: 'Quiz submitted successfully' });
   } catch (error) {
     console.error('Error submitting attempt:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+router.post('/:quizId/save-progress', requireAuth, async (req, res) => {
+  const { quizId } = req.params;
+  const userId = req.user.id;
+  const { answers } = req.body;
+
+  try {
+    const attempt = await QuizAttempt.findOne({ userId, quizId });
+    if (!attempt || attempt.submitted) {
+      return res.status(400).json({ error: 'Attempt not found or already submitted' });
+    }
+
+    attempt.answers = answers;  // Save partial answers
+    await attempt.save();
+
+    res.json({ message: 'Progress saved successfully' });
+  } catch (error) {
+    console.error('Error saving progress:', error);
     res.status(500).json({ error: 'Server error' });
   }
 });

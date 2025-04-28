@@ -10,14 +10,26 @@ const QuizList = () => {
   useEffect(() => {
     const fetchQuizzes = async () => {
       try {
-        const response = await axios.get('/api/quizzes');
-        setQuizzes(response.data);
+        const quizzesResponse = await axios.get('/api/quizzes');
+        const attemptsResponse = await axios.get('/api/attempts');  // 👈 Fetch user attempts
+  
+        const submittedQuizIds = attemptsResponse.data
+          .filter(attempt => attempt.submitted)
+          .map(attempt => attempt.quizId.toString());
+  
+        const quizzesWithStatus = quizzesResponse.data.map(quiz => ({
+          ...quiz,
+          submitted: submittedQuizIds.includes(quiz._id.toString()) 
+        }));
+  
+        setQuizzes(quizzesWithStatus);
         setLoading(false);
       } catch (error) {
-        console.error('Error fetching quizzes:', error);
+        console.error('Error fetching quizzes or attempts:', error);
+        setLoading(false);
       }
     };
-
+  
     fetchQuizzes();
   }, []);
 
@@ -33,7 +45,11 @@ const QuizList = () => {
           <div key={quiz._id} className="quiz-card">
             <h3>{quiz.quizTitle}</h3>
             <p>Duration: {quiz.duration} minutes</p>
-            <button onClick={() => navigate(`/take-quiz/${quiz._id}`)}>Start Quiz</button>
+            {quiz.submitted ? (
+              <button disabled>Quiz Submitted</button>
+            ) : (
+              <button onClick={() => navigate(`/take-quiz/${quiz._id}`)}>Start Quiz</button>
+            )}
           </div>
         ))
       )}

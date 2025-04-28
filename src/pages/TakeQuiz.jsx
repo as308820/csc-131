@@ -47,7 +47,7 @@ const TakeQuiz = () => {
         if (savedAnswers && savedAnswers.length > 0) {
           setAnswers(savedAnswers);
         }
-        
+
       } catch (err) {
         console.error('Error starting quiz attempt:', err);
       }
@@ -69,10 +69,19 @@ const TakeQuiz = () => {
     return () => clearInterval(timer);
   }, [timeLeft, submitted]);
 
-  const handleAnswerChange = (questionIndex, optionIndex) => {
+  const handleAnswerChange = async (questionIndex, optionIndex) => {
     const updatedAnswers = [...answers];
     updatedAnswers[questionIndex] = optionIndex;
     setAnswers(updatedAnswers);
+
+    // Auto-save to backend
+    try {
+      await axios.post(`/api/attempts/${quizData._id}/save-progress`, {
+        answers: updatedAnswers
+      });
+    } catch (err) {
+      console.error('Auto-save failed:', err);
+    }
   };
 
   const handleSubmit = async () => {
@@ -113,7 +122,7 @@ const TakeQuiz = () => {
                 <input
                   type="radio"
                   name={`question-${idx}`}
-                  checked={answers[idx] === optIdx}
+                  checked={parseInt(answers[idx]) === optIdx}
                   onChange={() => handleAnswerChange(idx, optIdx)}
                   disabled={submitted}
                 />
