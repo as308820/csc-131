@@ -1,0 +1,53 @@
+/* AccessibilityModal.css */
+
+.accessibility-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #f8f9fa;
+    padding: 2rem;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    z-index: 1100;
+    border-radius: 12px;
+    min-width: 320px;
+    font-family: sans-serif;
+  }
+  
+  .accessibility-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 1.2rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .accessibility-slider {
+    width: 100%;
+    margin-top: 10px;
+  }
+  
+  .accessibility-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    padding: 0.5rem 1rem;
+    background-color: #343a40;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .accessibility-toggle {
+    padding: 8px 16px;
+    margin-top: 12px;
+    background-color: #343a40;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }

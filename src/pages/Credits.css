@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .credits-container {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -47,3 +48,67 @@
         grid-template-columns: 1fr; /* 1 column on small phones */
     }
 }
+=======
+.credits-carousel {
+    height: 50vh;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 2rem;
+    background-color: var(--card-bg);
+    max-width: 100%;
+    margin: 10rem auto 2rem auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    transition: var(--global-transition);
+  }
+  
+  .member-card {
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    flex: 0 0 auto;
+    width: 200px;
+    margin-right: 1.5rem;
+    background-color: var(--bg-color);
+    border: var(--button-border);
+    border-radius: 12px;
+    text-align: center;
+    padding: 1rem;
+    transition: var(--global-transition);
+  }
+  
+  .member-card .top-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: var(--global-transition);
+  }
+  
+  .member-card img {
+    width: 100%;
+    aspect-ratio: 1 / 1.2;
+    object-fit: cover;
+    border-radius: 50% / 40%;
+    border: var(--button-border);
+    margin-bottom: 0.75rem;
+  }
+  
+  .member-card:hover {
+    transform: scale(1.1);
+  }
+  
+  .credits-carousel::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .credits-carousel {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    transition: var(--global-transition);
+  }
+  
+>>>>>>> 8d27519 (Final project)

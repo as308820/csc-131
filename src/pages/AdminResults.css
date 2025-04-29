@@ -1,0 +1,61 @@
+.admin-results {
+    background-color: var(--card-bg);
+    padding: 2rem;
+    border-radius: 16px;
+    max-width: 600px;
+    margin: 2rem auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .quiz-select-button {
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    border: var(--button-border);
+    padding: 0.75rem 1.5rem;
+    border-radius: 12px;
+    cursor: pointer;
+    margin: 0.5rem auto;
+    display: block;
+    width: 60%;
+    text-align: center;
+    transition: var(--global-btn-transition);
+  }
+  
+  .quiz-select-button:hover {
+    background-color: var(--button-hover-bg);
+  }
+  
+  .results-section {
+    margin-top: 2rem;
+  }
+  
+  .result-row {
+    background-color: var(--bg-color);
+    color: var(--modal-text);
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    margin: 0.5rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: var(--global-transition);
+  }
+  
+  .return-home-button {
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    border: var(--button-border);
+    padding: 0.75rem 1.5rem;
+    border-radius: 12px;
+    cursor: pointer;
+    margin: 2rem auto 0 auto;
+    display: block;
+    width: 60%;
+    text-align: center;
+    transition: var(--global-btn-transition);
+  }
+  
+  .return-home-button:hover {
+    background-color: var(--button-hover-bg);
+  }
