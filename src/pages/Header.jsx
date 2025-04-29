@@ -14,6 +14,7 @@ const Header = () => {
           <img src="/logo.webp" alt="Quiz App Logo" className="logo" />
         </Link>
         <nav className="nav-links">
+          <Link to="/">Home</Link>
           <Link to="/about">About</Link>
           <Link to="/contacts">Contacts</Link>
           <Link to="/credits">Credits</Link>
