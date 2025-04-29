@@ -1,5 +1,5 @@
 .footer {
-    background-color: var(--header-bg-color);
+    background-color: rgb(84, 80, 80);
     color: var(--text-color);
     padding: 1rem 2rem;
     position: fixed;
