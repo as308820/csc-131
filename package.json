@@ -39,13 +39,12 @@
   },
   "scripts": {
     "start": "concurrently \"npm run server\" \"npm run client\"",
-    "server": "cd backend && npm run dev",
+    "server": "node server/app.js",
     "client": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
 <<<<<<< HEAD
     "eject": "react-scripts eject",
-    "server": "node server/app.js",
     "dev": "concurrently \"npm run server\" \"npm start\""
 =======
     "eject": "react-scripts eject"
