@@ -30,7 +30,7 @@ const Footer = () => {
           <a href="https://www.linkedin.com/in/project-alpha-7b9398357/" target="_blank" rel="noopener noreferrer">
             <img src={linkedin} alt="LinkedIn" style={{ height: iconSize, width: iconSize }} />
           </a>
-          <a href="https://github.com/as308820/AMC-Website" target="_blank" rel="noopener noreferrer">
+          <a href="https://github.com/as308820/csc-131" target="_blank" rel="noopener noreferrer">
             <img src={github} alt="Github" style={{ height: iconSize, width: iconSize }} />
           </a>
         </div>
