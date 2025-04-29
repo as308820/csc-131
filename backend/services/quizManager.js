@@ -2,6 +2,10 @@ const { MongoClient, ObjectId } = require("mongodb");
 
 const uri = "mongodb://127.0.0.1:27017";
 const client = new MongoClient(uri);
+<<<<<<< HEAD
+=======
+const db = client.db("quizDB");
+>>>>>>> 8d27519 (Final project)
 
 class QuizManager {
     constructor(dbName = "quizDB") {
@@ -13,6 +17,24 @@ class QuizManager {
         return client.db(this.dbName);
     }
 
+<<<<<<< HEAD
+=======
+    // Load quiz by id
+    async getQuizById(quizId) {
+        try {
+          const db = await this.connect();
+          const quizzes = db.collection("quizzes");
+      
+          const quiz = await quizzes.findOne({ _id: new ObjectId(quizId) });
+          return quiz;
+        } catch (error) {
+          console.error("Failed to fetch quiz by ID:", error);
+        } finally {
+          await client.close();
+        }
+      }
+
+>>>>>>> 8d27519 (Final project)
     // Load all quizzes from the database
     async loadQuizData() {
         try {

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* Update the html and body styles */
 html, body {
     height: 100%;
@@ -185,3 +186,45 @@ hr{
     }
 
 }
+=======
+.footer {
+  background-color: rgb(84, 80, 80);
+  color: var(--text-color);
+  padding: 1rem 2rem;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10;
+  transition: 0.3s ease;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.socialmedia a img {
+  height: 30px;
+  margin-right: 0.75rem;
+  border-radius: 50%;
+  border: none;
+  transition: 0.1s ease;
+}
+
+.socialmedia a img:hover {
+  border: var(--button-border);
+  transform: scale(1.3);
+}
+
+
+.footer-content .AccessibilityButton {
+  align-self: center;
+  display: flex;
+  align-items: center;
+}
+>>>>>>> 8d27519 (Final project)

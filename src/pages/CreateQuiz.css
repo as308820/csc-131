@@ -1,0 +1,91 @@
+.create-quiz {
+  box-sizing: border-box;
+  background-color: var(--card-bg);
+  padding: 2rem;
+  border-radius: 16px;
+  max-width: 600px;
+  margin: 2rem auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  transition: var(--global-btn-transition);
+}
+
+.create-quiz input[type="text"],
+.create-quiz input[type="number"],
+.create-quiz select {
+  font-size: inherit;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  margin: 0.5rem 0 1rem 0;
+  border: var(--button-border);
+  border-radius: 8px;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: var(--global-transition);
+}
+
+.question-block {
+  background-color: var(--bg-color);
+  border: var(--button-border);
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  text-align: left;
+  transition: var(--global-transition);
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.button-group button {
+  background-color: var(--button-bg);
+  color: var(--button-text);
+  border: var(--button-border);
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: inherit;
+  transition: var(--global-btn-transition);
+}
+
+.button-group button.delete-question {
+  background-color: crimson;
+  border: none;
+  color: white;
+}
+
+.button-group button.delete-question:hover {
+  background-color: darkred;
+  border: none;
+}
+
+.save-quiz-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.submit-quiz-button {
+  width: 60%;
+  text-align: center;
+  font-size: inherit;
+
+  background-color: var(--button-bg);
+  color: var(--button-text);
+  border: var(--button-border);
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  cursor: pointer;
+  margin: 0.5rem auto;
+  transition: var(--global-btn-transition);
+}
+
+.button-group button:hover,
+.submit-quiz-button:hover {
+  background-color: var(--button-hover-bg);
+}
