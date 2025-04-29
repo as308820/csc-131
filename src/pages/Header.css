@@ -3,7 +3,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background-color: var(--header-bg-color);
+  background: linear-gradient(to right, #7fdae2, #1f4da8);
 }
 
 .left-group {
