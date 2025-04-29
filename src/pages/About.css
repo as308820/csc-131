@@ -1,34 +1,49 @@
 .about-container {
+    min-height: calc(70vh - 25px);
+    width: 100%;
     display: flex;
-    flex-direction: column;
     justify-content: center;
-    align-items: center;
-    background-color: var(--card-bg);
-    padding: 2rem;
-    border-radius: 16px;
-    max-width: 600px;
-    margin: 10rem auto 2rem auto;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    text-align: center;
-    transition: var(--global-transition);
-  }
-  
-  .about-title {
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: var(--text-color);
-    margin-bottom: 1.5rem;
-    transition: var(--global-transition);
-  }
-  
-  .about-text {
-    background-color: var(--bg-color);
-    padding: 1.5rem;
-    border-radius: 12px;
+    align-items: flex-start;
+    padding: 4rem;
+    box-sizing: border-box;
+}
+
+.about-content {
+    text-align: left;
+    max-width: 800px;
+}
+
+.about-content p {
     font-size: 1rem;
     line-height: 1.6;
-    color: var(--text-color);
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    transition: var(--global-transition);
-  }
-  
+    margin-bottom: 2rem;
+}
+
+.team-member {
+    background-color: #f9f9f9;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.team-member h3 {
+    margin-bottom: 0.5rem;
+    color: #1f4da8;
+}
+
+.team-member h4 {
+    margin-top: 1rem;
+    margin-bottom: 0.3rem;
+    font-size: 1.1rem;
+    color: #3e4a4d;
+}
+
+.team-member ul {
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.team-member li {
+    margin-bottom: 0.5rem;
+}
