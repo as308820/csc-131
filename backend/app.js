@@ -8,22 +8,14 @@ require("dotenv").config();
 const QuizManager = require("./services/quizManager");
 const quizManager = new QuizManager();
 
-<<<<<<< HEAD
-=======
 // Load authentication logic
 const authRoutes = require('./routes/auth');
 
->>>>>>> 8d27519 (Final project)
 // Initialize app
 const app = express();
 
 // Middleware
 app.use(morgan("dev"));
-<<<<<<< HEAD
-app.use(cors({ origin: true, credentials: true }));
-app.use(express.json());
-
-=======
 const corsOptions = {
   origin: process.env.CLIENT_URL || 'http://localhost:3000',
   credentials: true
@@ -40,7 +32,6 @@ app.use('/api/auth', authRoutes);
 
 
 
->>>>>>> 8d27519 (Final project)
 // MongoDB connection
 mongoose
   .connect(process.env.MONGO_URI)
@@ -60,13 +51,9 @@ app.get("/api/quizzes", async (req, res) => {
 
 // external routes
 const quizRoutes = require('./routes/quiz');
-<<<<<<< HEAD
-app.use(quizRoutes);
-=======
 const quizAttemptRoutes = require('./routes/quizAttempts');
 app.use(quizRoutes);
 app.use('/api/attempts', quizAttemptRoutes);
->>>>>>> 8d27519 (Final project)
 
 // Server
 const port = process.env.PORT || 8080;

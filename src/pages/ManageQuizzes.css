@@ -9,16 +9,8 @@
 }
 
 .quiz-card {
-<<<<<<< HEAD
   font-size: inherit;
   background-color: var(--card-bg);
-=======
-  box-sizing: border-box;
-  width: 100%;
-  margin: 1rem 0;
-  font-size: inherit;
-  background-color: var(--bg-color);
->>>>>>> 8d27519 (Final project)
   color: var(--text-color);
   border-radius: 24px;
   padding: 1.5rem;
@@ -27,11 +19,8 @@
   justify-content: space-between;
   align-items: center;
   transition: var(--global-btn-transition);
-<<<<<<< HEAD
-=======
   max-width: 600px;
   margin: 1rem auto;
->>>>>>> 8d27519 (Final project)
 }
 .quiz-card:hover {
   transform: translateY(-2px);
@@ -65,16 +54,6 @@
   background-color: var(--button-hover-bg);
 }
   
-<<<<<<< HEAD
-.quiz-card button:last-child {
-  background-color: crimson;
-  border: none;
-}
-
-.quiz-card button:last-child:hover {
-  background-color: darkred;
-  border: none;
-=======
 .quiz-card .delete-button {
   background-color: crimson;
   color: white;
@@ -128,5 +107,4 @@
   margin: 2rem auto;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   text-align: center;
->>>>>>> 8d27519 (Final project)
 }
