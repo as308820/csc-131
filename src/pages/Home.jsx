@@ -10,7 +10,7 @@ function Home() {
         <p className="big-text">Take and Create Quizzes</p>
       </div>
       <div className="home-image-box">
-          <img src={"Headshots/Quiz.jpg"} alt="Quiz" />
+          <img src={"/Headshots/Quiz.jpg"} alt="Quiz" />
       </div>
     </div>
   );
