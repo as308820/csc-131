@@ -1,61 +1,30 @@
-import React from 'react';
-<<<<<<< HEAD
-import { Link } from 'react-router-dom'; //For navigation
+import React, { useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import "./Header.css";
-
-
- const Header = ()=> {
-     return (
-         <header className="header">
-            <Link to="/" className="logo-link">
-                <img src="Headshots/logo.svg" alt="Quiz App Logo" className="logo" />
-            </Link>
-            
-            <nav className="nav-links">
-                <Link to="/" className="home-button">Home</Link>
-                <Link to="/about" className="about-button">About</Link>
-                <Link to="/contacts" className="contacts-button">Contacts</Link>
-                <Link to="/credits" className="credits-button">Credits</Link>
-
-                {/*Test link to quiz manager */}
-                <Link to="/manage-quizzes" className="about-button">[Dev Only] Manage Quizzes</Link>
-
-            </nav>
-
-            <nav className="log-links">
-                <Link to="/LogIn" className="login-button">Login/Sign up</Link>
-            </nav>
-            {/*TODO: Add styling to the header and navigation links later */}
-        </header>
-     );
- };
- 
- export default Header;
- 
-=======
-import { Link } from 'react-router-dom';
-import "./Header.css";
-import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 
 const Header = () => {
   const { user, logout } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    await logout();
+    navigate('/login');
+  };
 
   return (
     <header className="header">
       <div className="left-group">
         <Link to="/" className="logo-link">
-          <img src="/logo.webp" alt="Quiz App Logo" className="logo" />
+          <img src="/logo.png" alt="Quiz App Logo" className="logo" />
         </Link>
         <nav className="nav-links">
-          <Link to="/" className="home-button">Home</Link>
+          <Link to="/">Home</Link>
           <Link to="/about">About</Link>
           <Link to="/contacts">Contacts</Link>
           <Link to="/credits">Credits</Link>
           {user && !user.isAdmin && (
-              <Link to="/quiz-list" className="about-button">
-                  Quizzes
-              </Link>
+            <Link to="/quiz-list" className="about-button">Quizzes</Link>
           )}
           {user?.isAdmin && (
             <>
@@ -70,7 +39,7 @@ const Header = () => {
         {user ? (
           <>
             <span className="display-username">Welcome, {user.name}</span>
-            <button className="logout-button" onClick={logout}>Logout</button>
+            <button className="logout-button" onClick={handleLogout}>Logout</button>
           </>
         ) : (
           <>
@@ -84,4 +53,3 @@ const Header = () => {
 };
 
 export default Header;
->>>>>>> 8d27519 (Final project)

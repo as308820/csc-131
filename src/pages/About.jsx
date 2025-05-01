@@ -1,19 +1,10 @@
 import React from 'react';
 import "./About.css";
-<<<<<<< HEAD
-=======
 
->>>>>>> 8d27519 (Final project)
 const About = () => {
     return (
         <main className="about-container">
             <section className="about-content">
-<<<<<<< HEAD
-                <p>
-                    This application is a full stack web application developed using the MERN stack (MongoDB, Express.js, React, and Node.js).
-                    Our goal is to create a user-friend platform where users can take, create, and manage quizzes.
-                </p>
-=======
                 <h1>Our Goal</h1>
                 <p>
                     This application is a full stack web application developed using the MERN stack (MongoDB, Express.js, React, and Node.js).
@@ -288,10 +279,10 @@ const About = () => {
                     </ul>
                 </section>
 
->>>>>>> 8d27519 (Final project)
             </section>
         </main>
     );
 };
 
 export default About;
+

@@ -1,9 +1,10 @@
 import { createContext, useState, useEffect } from 'react';
+import axios from '../axios';
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);  // Stores logged-in user info
+  const [user, setUser] = useState(null);
 
   // Load user from localStorage (if available)
   useEffect(() => {
@@ -16,9 +17,15 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem('user', JSON.stringify(userData));
   };
 
-  const logout = () => {
-    setUser(null);
-    localStorage.removeItem('user');
+  const logout = async () => {
+    try {
+      await axios.post('/api/auth/logout');
+    } catch (err) {
+      console.error('Logout error:', err);
+    } finally {
+      setUser(null);
+      localStorage.removeItem('user');
+    }
   };
 
   return (

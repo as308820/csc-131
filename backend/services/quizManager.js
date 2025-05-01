@@ -1,11 +1,8 @@
 const { MongoClient, ObjectId } = require("mongodb");
 
-const uri = "mongodb://127.0.0.1:27017";
+const uri = process.env.MONGO_URI;;
 const client = new MongoClient(uri);
-<<<<<<< HEAD
-=======
 const db = client.db("quizDB");
->>>>>>> 8d27519 (Final project)
 
 class QuizManager {
     constructor(dbName = "quizDB") {
@@ -17,8 +14,6 @@ class QuizManager {
         return client.db(this.dbName);
     }
 
-<<<<<<< HEAD
-=======
     // Load quiz by id
     async getQuizById(quizId) {
         try {
@@ -34,7 +29,6 @@ class QuizManager {
         }
       }
 
->>>>>>> 8d27519 (Final project)
     // Load all quizzes from the database
     async loadQuizData() {
         try {

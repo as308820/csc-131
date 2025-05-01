@@ -1,15 +1,10 @@
 import "./ManageQuizzes.css";
 import React, { useEffect, useState } from "react";
-<<<<<<< HEAD
-
-export default function ManageQuizzes() {
-  const [quizzes, setQuizzes] = useState([]);
-  const [loading, setLoading] = useState(true);
-=======
 import { useNavigate } from 'react-router-dom';
 import { useAccessibility } from "../accessibility/AccessibilityContext";
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
+import axios from '../axios';
 
 export default function ManageQuizzes() {
   const { user } = useContext(AuthContext);
@@ -17,20 +12,21 @@ export default function ManageQuizzes() {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const { textSize } = useAccessibility();
->>>>>>> 8d27519 (Final project)
 
   // Fetch quizzes on page load
   useEffect(() => {
-    fetch("/api/quizzes")
-      .then((res) => res.json())
-      .then((data) => {
-        setQuizzes(data);
-        setLoading(false);
-      })
-      .catch((err) => {
+    const fetchQuizzes = async () => {
+      try {
+        const res = await axios.get('/api/quizzes');
+        setQuizzes(res.data);
+      } catch (err) {
         console.error("Failed to load quizzes:", err);
+      } finally {
         setLoading(false);
-      });
+      }
+    };
+
+    fetchQuizzes();
   }, []);
 
   const handleEdit = (id) => {
@@ -42,8 +38,8 @@ export default function ManageQuizzes() {
     if (!window.confirm("Are you sure you want to delete this quiz?")) return;
   
     try {
-      const res = await fetch(`/api/quizzes/${id}`, { method: "DELETE" });
-      if (res.ok) {
+      const res = await axios.delete(`/api/quizzes/${id}`);
+      if (res.status === 204) {
         setQuizzes(quizzes.filter((q) => q._id !== id));
       } else {
         console.error("Failed to delete quiz");
@@ -53,28 +49,6 @@ export default function ManageQuizzes() {
     }
   };
 
-<<<<<<< HEAD
-  return (
-    <div className="manage-quizzes">
-      <h2>Manage Quizzes</h2>
-      {loading ? (  
-        <p>Loading quizzes...</p>
-      ) : quizzes.length === 0 ? (
-        <p>No quizzes available.</p>
-      ) : (
-        <div className="quiz-list">
-            {quizzes.map((quiz) => (
-              <div className="quiz-card" key={quiz._id}>
-                <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
-                  <button
-                    className="edit-button"
-                    onClick={() => handleEdit(quiz._id)}
-                  >
-                    {quiz.title}
-                  </button>
-                  <button
-                    className="delete-button"
-=======
   if (!user) {
     return <p>You must be logged in to view this page.</p>;
   }
@@ -115,7 +89,6 @@ export default function ManageQuizzes() {
                   <button
                     className="delete-button"
                     style={{ fontSize: `${textSize}px` }}
->>>>>>> 8d27519 (Final project)
                     onClick={() => handleDelete(quiz._id)}
                   >
                     Delete
@@ -123,10 +96,6 @@ export default function ManageQuizzes() {
                 </div>
               </div>
             ))}
-<<<<<<< HEAD
-        </div>
-      )}
-=======
           </div>
         )}
 
@@ -138,7 +107,6 @@ export default function ManageQuizzes() {
           Create New Quiz
         </button>
       </div>
->>>>>>> 8d27519 (Final project)
     </div>
   );
 }

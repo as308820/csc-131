@@ -1,16 +1,8 @@
-<<<<<<< HEAD
-import React, { createContext, useState, useContext } from 'react';
-=======
 import React, { createContext, useState, useContext, useEffect } from 'react';
->>>>>>> 8d27519 (Final project)
 
 const AccessibilityContext = createContext();
 
 export const AccessibilityProvider = ({ children }) => {
-<<<<<<< HEAD
-  const [theme, setTheme] = useState('light');
-  const [textSize, setTextSize] = useState(16);
-=======
   const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');
   const [textSize, setTextSize] = useState(() => parseInt(localStorage.getItem('textSize')) || 16);
 
@@ -22,7 +14,6 @@ export const AccessibilityProvider = ({ children }) => {
   useEffect(() => {
     localStorage.setItem('textSize', textSize);
   }, [textSize]);
->>>>>>> 8d27519 (Final project)
 
   return (
     <AccessibilityContext.Provider value={{ theme, setTheme, textSize, setTextSize }}>

@@ -51,9 +51,9 @@ router.post("/login", async (req, res) => {
             );
             res.cookie('token', token, {
                 httpOnly: true,
-                sameSite: 'lax', 
-                secure: process.env.NODE_ENV === 'production'
-            });
+                sameSite: 'None',
+                secure: true
+              });
             res.json({ message: "success", user });
         } else {
             res.status(401).json({ message: "Invalid credentials" });
@@ -83,5 +83,14 @@ router.get('/users', requireAuth, async (req, res) => {
         res.status(500).json({ error: 'Server error' });
     }
 });
+
+router.post('/logout', (req, res) => {
+    res.clearCookie('token', {
+      httpOnly: true,
+      sameSite: 'None',
+      secure: true,
+    });
+    res.json({ message: 'Logged out successfully' });
+  });
 
 module.exports = router;
